@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Globe, TrendingDown } from "lucide-react";
+import { ArrowLeft, Github, TrendingDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import wageLibraryDashboard from "@/assets/wage-liability-dashboard.png";
 
@@ -97,13 +97,13 @@ const CaseStudyWageRisk = () => {
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-3">
               <a
-                href="https://wage-liability-risk-engine.streamlit.app"
+                href="https://github.com/whiteblack69/wage-liability-risk-engine"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gold-primary text-background font-semibold hover:bg-gold-light transition-colors"
               >
-                <Globe className="w-4 h-4" />
-                View Live Demo →
+                <Github className="w-4 h-4" />
+                View on GitHub →
               </a>
             </div>
           </motion.div>
@@ -525,19 +525,19 @@ const CaseStudyWageRisk = () => {
             transition={{ duration: 0.5 }}
             className="p-8 rounded-2xl bg-card border border-border text-center"
           >
-            <h2 className="font-display text-2xl font-bold mb-4 text-gold-light">See It In Action</h2>
+            <h2 className="font-display text-2xl font-bold mb-4 text-gold-light">Explore the Code</h2>
             <p className="text-muted-foreground mb-6">
-              The live demo includes sample data for 25 employees across 10 countries.
+              View the full source code including calculation engine and dashboard implementation.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <a
-                href="https://wage-liability-risk-engine.streamlit.app"
+                href="https://github.com/whiteblack69/wage-liability-risk-engine"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gold-primary text-background font-semibold hover:bg-gold-light transition-colors"
               >
-                <Globe className="w-4 h-4" />
-                View Live Demo →
+                <Github className="w-4 h-4" />
+                View on GitHub →
               </a>
             </div>
           </motion.div>
