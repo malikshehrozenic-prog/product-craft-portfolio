@@ -1,24 +1,73 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Workflow, Bot, Database, MessageSquare, ExternalLink, CheckCircle2, AlertTriangle, XCircle, Lightbulb } from "lucide-react";
+import { ArrowLeft, Workflow, CheckCircle2, AlertTriangle, XCircle, Lightbulb, Clock, DollarSign, Target, Users, Zap, MessageSquare } from "lucide-react";
 import n8nWorkflowScreenshot from "@/assets/n8n-workflow-screenshot.png";
 import { Link } from "react-router-dom";
 
-const workflowStages = [
-  { stage: "Intake", description: "Accepts expenses via API webhook, email forward, or Slack command" },
-  { stage: "AI Extraction", description: "GPT-4 Vision parses receipts to extract vendor, amount, date, and category" },
-  { stage: "Tax Assessment", description: "Applies country-specific rules to calculate taxable benefits, VAT reclaim eligibility, and corporate deductibility" },
-  { stage: "Policy Validation", description: "Checks against daily limits, prohibited categories, and flags anomalies with a 0-100 risk score" },
-  { stage: "Smart Routing", description: "Auto-approves low-risk expenses; escalates others to manager, finance, or full approval chain" },
-  { stage: "Slack Approvals", description: "Sends rich notifications with tax impact summary and interactive approve/reject buttons" },
-  { stage: "Processing", description: "Updates accounting records, queues payroll reimbursements, and logs audit trail" },
+const problemNumbers = [
+  { value: "$180K", label: "Annual labor on rule-based lookups" },
+  { value: "12%", label: "Rework rate due to incorrect tax treatment" },
+  { value: "4.2 days", label: "Average submission to reimbursement" },
+  { value: "15+ hrs", label: "Weekly specialist time on research" },
 ];
 
-const taxRules = [
-  { country: "🇩🇪", name: "Germany", rule: "Meals over €50/day are taxable benefits (Sachbezug)" },
-  { country: "🇬🇧", name: "UK", rule: "VAT on meals and accommodation is never reclaimable" },
-  { country: "🇺🇸", name: "USA", rule: "Entertainment is 0% deductible since TCJA 2017" },
-  { country: "🇫🇷", name: "France", rule: "Client entertainment VAT is 50% reclaimable" },
-  { country: "🇳🇱", name: "Netherlands", rule: "Bicycle purchases have special tax exemption" },
+const options = [
+  { option: "Wait for Engineering", detail: "9+ months until Q1 next year", rejected: true },
+  { option: "Buy a solution", detail: "None handled EOR tax complexity", rejected: true },
+  { option: "Build it myself with no-code", detail: "Validate quickly, prove concept or learn", chosen: true },
+];
+
+const stakeholderBuyIn = [
+  { 
+    team: "Engineering", 
+    pitch: "I'm not asking for resources. I'll build and maintain it. I need your blessing and architecture review.",
+    result: "Approved with conditions"
+  },
+  { 
+    team: "Operations", 
+    pitch: "Let me pilot with Germany and UK. You get a kill switch if it doesn't work.",
+    result: "Enthusiastic yes"
+  },
+  { 
+    team: "Finance/Compliance", 
+    pitch: "Every rule comes from your existing guides. The audit trail will be better than today. I own accountability.",
+    result: "Approved for pilot"
+  },
+];
+
+const workflowCapabilities = [
+  "Extracts receipt data using GPT-4 Vision",
+  "Applies country-specific tax rules (German Sachbezug, UK VAT blocking, US TCJA limits)",
+  "Calculates risk scores for approval routing",
+  "Sends interactive Slack messages with full tax breakdowns",
+  "Auto-approves low-risk expenses, escalates others",
+];
+
+const results = [
+  { metric: "Processing time", before: "4.2 days", after: "0.8 days" },
+  { metric: "Tax accuracy", before: "88%", after: "99.2%" },
+  { metric: "Hours/week on expenses", before: "15", after: "4" },
+  { metric: "Compliance findings", before: "3/year", after: "0" },
+];
+
+const keyDecisions = [
+  {
+    title: "No-code over waiting",
+    description: "Time-to-value mattered more than architectural purity. Contained risk with operational (not customer-facing) scope."
+  },
+  {
+    title: "Two countries first",
+    description: "Germany + UK = 45% of volume. Validated approach before scaling to 7 countries."
+  },
+  {
+    title: "Risk-based auto-approve",
+    description: "34% of expenses now auto-approve with zero compliance issues. Approvers can audit anytime."
+  },
+];
+
+const takeaways = [
+  "The best solution isn't always a product feature. Sometimes it's an operational tool you build yourself.",
+  "Quantify before you build. \"15 hours/week\" made every conversation easier than \"it takes a long time.\"",
+  "Ask stakeholders for blessing, not resources. Engineering became allies, not blockers.",
 ];
 
 const techStack = [
@@ -27,21 +76,6 @@ const techStack = [
   { name: "Airtable", description: "Data layer" },
   { name: "Slack", description: "Notifications" },
   { name: "REST APIs", description: "Currency conversion" },
-];
-
-const technicalHighlights = [
-  "36-node n8n workflow with 3 trigger paths",
-  "GPT-4 Vision for receipt data extraction",
-  "Tax rules engine covering 7 countries and 30+ category combinations",
-  "Real-time currency conversion and duplicate detection",
-  "Parallel processing for accounting, payroll, and audit systems",
-];
-
-const businessValue = [
-  "Reduces manual compliance research by automating tax assessments",
-  "Ensures consistent policy application across jurisdictions",
-  "Speeds up approval cycles with intelligent auto-approve",
-  "Creates audit-ready documentation for every expense",
 ];
 
 const CaseStudyN8n = () => {
@@ -69,27 +103,33 @@ const CaseStudyN8n = () => {
             transition={{ duration: 0.6 }}
             className="mb-12"
           >
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap items-center gap-3 mb-6">
+              <span className="px-3 py-1 text-sm rounded-full bg-gold-primary/10 text-gold-primary border border-gold-primary/20">
+                Lead Product Manager
+              </span>
+              <span className="text-muted-foreground">•</span>
+              <span className="text-muted-foreground">Oyster HR</span>
+              <span className="text-muted-foreground">•</span>
+              <span className="text-muted-foreground">2024</span>
+            </div>
+            
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gold-shine">
+              Automating Multi-Country Expense Tax Compliance
+            </h1>
+            
+            <div className="flex flex-wrap gap-2">
               {["n8n", "OpenAI", "Airtable", "Slack"].map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1 text-sm rounded-full bg-gold-primary/10 text-gold-primary border border-gold-primary/20"
+                  className="px-3 py-1 text-sm rounded-full bg-secondary text-secondary-foreground border border-border"
                 >
                   {tag}
                 </span>
               ))}
             </div>
-            
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gold-shine">
-              EOR Expense Intelligence System
-            </h1>
-            
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              A sophisticated expense management workflow designed for Employer of Record (EOR) businesses operating across multiple countries. The system automates what typically requires specialized payroll knowledge—determining the tax treatment of employee expenses in different jurisdictions.
-            </p>
           </motion.div>
 
-          {/* Workflow Diagram Placeholder */}
+          {/* Workflow Screenshot */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -99,19 +139,19 @@ const CaseStudyN8n = () => {
             <div className="p-4 border-b border-border bg-secondary/30">
               <div className="flex items-center gap-2">
                 <Workflow className="w-5 h-5 text-gold-primary" />
-                <span className="font-medium">n8n Workflow Architecture</span>
+                <span className="font-medium">36-Node n8n Workflow</span>
               </div>
             </div>
             <div className="p-4 bg-[#1a1a1a]">
               <img 
                 src={n8nWorkflowScreenshot} 
-                alt="n8n workflow showing 36-node expense automation system with intake, AI extraction, tax engine, and approval routing stages"
+                alt="n8n workflow showing 36-node expense automation system"
                 className="w-full h-auto rounded-lg"
               />
             </div>
           </motion.div>
 
-          {/* The Challenge */}
+          {/* The Problem */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -120,47 +160,36 @@ const CaseStudyN8n = () => {
             className="mb-16"
           >
             <h2 className="font-display text-2xl md:text-3xl font-bold mb-6 text-gold-light">
-              The Challenge
+              The Problem
             </h2>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              When a German employee submits a €150 client dinner receipt, the EOR needs to answer:
-            </p>
-            <div className="space-y-4 pl-4 border-l-2 border-gold-primary/30">
-              <div className="flex items-start gap-3">
-                <span className="text-gold-primary font-medium">1.</span>
-                <div>
-                  <p className="text-foreground">Is this a taxable benefit?</p>
-                  <p className="text-sm text-muted-foreground">(Yes, amounts over €50/day trigger Sachbezug rules)</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-gold-primary font-medium">2.</span>
-                <div>
-                  <p className="text-foreground">Can we reclaim the VAT?</p>
-                  <p className="text-sm text-muted-foreground">(No, meals are "blocked input" in Germany)</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-gold-primary font-medium">3.</span>
-                <div>
-                  <p className="text-foreground">What percentage is tax-deductible?</p>
-                  <p className="text-sm text-muted-foreground">(70% for business meals)</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-gold-primary font-medium">4.</span>
-                <div>
-                  <p className="text-foreground">Should we recommend per diem instead?</p>
-                  <p className="text-sm text-muted-foreground">(Often more tax-efficient)</p>
-                </div>
-              </div>
+            <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <p>
+                During quarterly reviews with our Payroll Operations team, I uncovered a hidden time sink: specialists were spending <span className="text-gold-primary font-semibold">15+ hours per week</span> researching tax rules for employee expenses. Is this meal taxable in Germany? Can we reclaim VAT in the UK? Every submission became a research project.
+              </p>
+              <p>
+                I ran a time study and found that over <span className="text-foreground font-medium">60% of their work followed deterministic rules</span>—not judgment calls. We were paying specialists to do what a system should handle.
+              </p>
             </div>
-            <p className="text-muted-foreground mt-6 leading-relaxed">
-              Multiply this by dozens of countries and hundreds of employees—it's a compliance nightmare that traditionally requires manual research for every expense.
-            </p>
+
+            {/* Problem Numbers */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+              {problemNumbers.map((item, index) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className="p-4 rounded-xl bg-card border border-border text-center"
+                >
+                  <p className="text-2xl md:text-3xl font-bold text-gold-primary">{item.value}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{item.label}</p>
+                </motion.div>
+              ))}
+            </div>
           </motion.section>
 
-          {/* The Solution */}
+          {/* Why Not Just Build It? */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -169,34 +198,89 @@ const CaseStudyN8n = () => {
             className="mb-16"
           >
             <h2 className="font-display text-2xl md:text-3xl font-bold mb-6 text-gold-light">
-              The Solution
+              Why Not Just Build It?
             </h2>
-            <p className="text-muted-foreground mb-8 leading-relaxed">
-              I built an end-to-end automation that handles the entire expense lifecycle:
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              I wrote a product brief and took it to Engineering. Their response: <span className="text-foreground italic">"Solid problem, but we're committed through Q3. Earliest is Q1 next year."</span>
             </p>
+            <p className="text-muted-foreground mb-8 leading-relaxed">
+              They were right to prioritize core platform work. But Operations couldn't wait 9 months.
+            </p>
+
             <div className="space-y-3">
-              {workflowStages.map((item, index) => (
+              {options.map((item, index) => (
                 <motion.div
-                  key={item.stage}
+                  key={item.option}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="flex gap-4 p-4 rounded-xl bg-card border border-border hover:border-gold-primary/30 transition-colors"
+                  className={`flex items-center gap-4 p-4 rounded-xl border transition-colors ${
+                    item.chosen 
+                      ? "bg-gold-primary/10 border-gold-primary/30" 
+                      : "bg-card border-border"
+                  }`}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-gold-primary/10 flex items-center justify-center flex-shrink-0">
-                    <span className="text-sm font-bold text-gold-primary">{index + 1}</span>
+                  {item.rejected ? (
+                    <XCircle className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                  ) : (
+                    <CheckCircle2 className="w-5 h-5 text-gold-primary flex-shrink-0" />
+                  )}
+                  <div className="flex-1">
+                    <p className={`font-medium ${item.chosen ? "text-gold-primary" : "text-foreground"}`}>
+                      {item.option}
+                    </p>
+                    <p className="text-sm text-muted-foreground">{item.detail}</p>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1">{item.stage}</h3>
-                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                  {item.chosen && (
+                    <span className="px-2 py-1 text-xs rounded-full bg-gold-primary/20 text-gold-primary">
+                      Chosen
+                    </span>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
+
+          {/* Getting Buy-In */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
+            <h2 className="font-display text-2xl md:text-3xl font-bold mb-6 text-gold-light">
+              Getting Buy-In
+            </h2>
+            <p className="text-muted-foreground mb-8 leading-relaxed">
+              This required careful stakeholder management:
+            </p>
+            <div className="space-y-4">
+              {stakeholderBuyIn.map((item, index) => (
+                <motion.div
+                  key={item.team}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className="p-5 rounded-xl bg-card border border-border"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <Users className="w-4 h-4 text-gold-primary" />
+                    <h3 className="font-semibold text-foreground">{item.team}</h3>
+                  </div>
+                  <p className="text-muted-foreground text-sm mb-3 italic">"{item.pitch}"</p>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-green-500" />
+                    <span className="text-sm text-green-500 font-medium">{item.result}</span>
                   </div>
                 </motion.div>
               ))}
             </div>
           </motion.section>
 
-          {/* Tax Intelligence Examples */}
+          {/* What I Built */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -205,32 +289,38 @@ const CaseStudyN8n = () => {
             className="mb-16"
           >
             <h2 className="font-display text-2xl md:text-3xl font-bold mb-6 text-gold-light">
-              Tax Intelligence Examples
+              What I Built
             </h2>
-            <div className="overflow-hidden rounded-xl border border-border">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-secondary/50">
-                    <th className="px-4 py-3 text-left text-sm font-semibold">Country</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold">Rule Applied</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {taxRules.map((rule, index) => (
-                    <tr key={rule.name} className={index % 2 === 0 ? "bg-card" : "bg-secondary/20"}>
-                      <td className="px-4 py-3 text-sm">
-                        <span className="text-xl mr-2">{rule.country}</span>
-                        <span className="text-muted-foreground">{rule.name}</span>
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">{rule.rule}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              A <span className="text-foreground font-medium">36-node n8n workflow</span> that:
+            </p>
+            <div className="space-y-3 mb-8">
+              {workflowCapabilities.map((item, index) => (
+                <motion.div
+                  key={item}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className="flex items-start gap-3 p-3 rounded-lg bg-secondary/30"
+                >
+                  <Zap className="w-4 h-4 text-gold-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-muted-foreground">{item}</span>
+                </motion.div>
+              ))}
+            </div>
+            <div className="flex items-start gap-3 p-4 rounded-xl bg-gold-primary/10 border border-gold-primary/20">
+              <Lightbulb className="w-5 h-5 text-gold-primary mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="font-medium text-gold-light">Key design principle</p>
+                <p className="text-sm text-muted-foreground">
+                  Automate the deterministic, surface the judgment calls. The system explains every decision so approvers trust it.
+                </p>
+              </div>
             </div>
           </motion.section>
 
-          {/* Sample Output */}
+          {/* Sample Slack Output */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -239,11 +329,8 @@ const CaseStudyN8n = () => {
             className="mb-16"
           >
             <h2 className="font-display text-2xl md:text-3xl font-bold mb-6 text-gold-light">
-              Sample Output
+              Sample Slack Output
             </h2>
-            <p className="text-muted-foreground mb-6">
-              The Slack approval message shows approvers exactly what they need:
-            </p>
             <div className="rounded-xl border border-border bg-[#1a1a1a] p-6 font-mono text-sm">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-2xl">🧾</span>
@@ -301,48 +388,101 @@ const CaseStudyN8n = () => {
             </div>
           </motion.section>
 
-          {/* Technical Highlights & Business Value */}
-          <div className="grid md:grid-cols-2 gap-6 mb-16">
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="p-6 rounded-xl border border-border bg-card"
-            >
-              <h2 className="font-display text-xl font-bold mb-4 text-gold-light">
-                Technical Highlights
-              </h2>
-              <ul className="space-y-3">
-                {technicalHighlights.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-gold-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.section>
+          {/* Results */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
+            <h2 className="font-display text-2xl md:text-3xl font-bold mb-6 text-gold-light">
+              Results
+            </h2>
+            <div className="overflow-hidden rounded-xl border border-border">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-secondary/50">
+                    <th className="px-4 py-3 text-left text-sm font-semibold">Metric</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold">Before</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold">After</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {results.map((row, index) => (
+                    <tr key={row.metric} className={index % 2 === 0 ? "bg-card" : "bg-secondary/20"}>
+                      <td className="px-4 py-3 text-sm text-foreground font-medium">{row.metric}</td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">{row.before}</td>
+                      <td className="px-4 py-3 text-sm text-gold-primary font-semibold">{row.after}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-6 p-4 rounded-xl bg-card border border-border">
+              <p className="text-muted-foreground">
+                <span className="text-foreground font-medium">Strategic impact:</span> The pilot's success moved "Expense Tax Engine" from backlog to Q2 priority. Engineering now has validated requirements and a working reference implementation.
+              </p>
+            </div>
+          </motion.section>
 
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="p-6 rounded-xl border border-border bg-card"
-            >
-              <h2 className="font-display text-xl font-bold mb-4 text-gold-light">
-                Business Value
-              </h2>
-              <ul className="space-y-3">
-                {businessValue.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-gold-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.section>
-          </div>
+          {/* Key Decisions */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
+            <h2 className="font-display text-2xl md:text-3xl font-bold mb-6 text-gold-light">
+              Key Decisions
+            </h2>
+            <div className="space-y-4">
+              {keyDecisions.map((item, index) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className="p-5 rounded-xl bg-card border border-border"
+                >
+                  <h3 className="font-semibold text-gold-primary mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
+
+          {/* Takeaways */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
+            <h2 className="font-display text-2xl md:text-3xl font-bold mb-6 text-gold-light">
+              Takeaways
+            </h2>
+            <div className="space-y-4">
+              {takeaways.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className="flex items-start gap-4 p-4 rounded-xl bg-secondary/30 border border-border"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-gold-primary/10 flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm font-bold text-gold-primary">{index + 1}</span>
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">{item}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
 
           {/* Tech Stack */}
           <motion.section
@@ -367,23 +507,6 @@ const CaseStudyN8n = () => {
               ))}
             </div>
           </motion.section>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center"
-          >
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gold-primary text-background font-semibold hover:bg-gold-light transition-colors"
-            >
-              View on GitHub
-              <ExternalLink className="w-4 h-4" />
-            </a>
-          </motion.div>
         </div>
       </div>
     </main>
