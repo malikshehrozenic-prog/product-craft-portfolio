@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center hero-gradient overflow-hidden">
-      {/* Subtle background elements */}
+      {/* Luxurious background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-primary/8 rounded-full blur-[100px]" />
+        <div className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] bg-accent/6 rounded-full blur-[80px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/4 rounded-full blur-[120px]" />
       </div>
 
       <div className="container relative z-10 px-6 py-24">
@@ -20,10 +21,10 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary border border-border mb-8"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary/80 border border-primary/30 mb-8 glow-gold"
           >
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm text-muted-foreground">Product Manager</span>
+            <span className="text-sm text-primary font-medium tracking-wide">Product Manager</span>
           </motion.div>
 
           <motion.h1
@@ -34,7 +35,7 @@ const Hero = () => {
           >
             Building Products
             <br />
-            <span className="text-gradient">That Matter</span>
+            <span className="text-gold-shine">That Matter</span>
           </motion.h1>
 
           <motion.p
