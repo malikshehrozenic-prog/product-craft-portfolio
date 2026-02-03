@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Workflow, TrendingUp } from "lucide-react";
+import { ArrowUpRight, Workflow, TrendingUp, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const caseStudies = [
@@ -20,6 +20,15 @@ const caseStudies = [
     icon: TrendingUp,
     color: "from-emerald-500/20 to-teal-500/20",
     link: "/case-study/wage-risk",
+  },
+  {
+    id: 3,
+    title: "E-Requisition Workflow System",
+    description: "End-to-end procurement automation platform processing $1.2B annually with dynamic approval routing and 65% cycle time reduction.",
+    tags: ["BPM Workflow", "SharePoint", "Cost Point", "Process Automation"],
+    icon: FileText,
+    color: "from-amber-500/20 to-orange-500/20",
+    link: "/case-study/e-requisition",
   },
 ];
 
