@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowLeft, TrendingUp, Globe, Calculator, AlertTriangle, ExternalLink, CheckCircle2, DollarSign, Shield, BarChart3 } from "lucide-react";
 import { Link } from "react-router-dom";
-import wageLibraryDashboard from "@/assets/wage-liability-dashboard.jpg";
+import wageLibraryDashboard from "@/assets/wage-liability-dashboard.png";
 
 const countries = [
   { flag: "🇧🇷", name: "Brazil", drivers: "40% FGTS penalty, 13th month, notice: 30 days + 3 days/year" },
