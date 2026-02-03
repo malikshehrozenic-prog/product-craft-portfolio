@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Globe, ExternalLink, TrendingDown, Clock, Users, AlertTriangle } from "lucide-react";
+import { ArrowLeft, Globe, TrendingDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import wageLibraryDashboard from "@/assets/wage-liability-dashboard.png";
 
@@ -104,13 +104,6 @@ const CaseStudyWageRisk = () => {
               >
                 <Globe className="w-4 h-4" />
                 View Live Demo →
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-foreground font-semibold hover:bg-secondary transition-colors"
-              >
-                View Source
-                <ExternalLink className="w-4 h-4" />
               </a>
             </div>
           </motion.div>
@@ -545,13 +538,6 @@ const CaseStudyWageRisk = () => {
               >
                 <Globe className="w-4 h-4" />
                 View Live Demo →
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-foreground font-semibold hover:bg-secondary transition-colors"
-              >
-                View Source
-                <ExternalLink className="w-4 h-4" />
               </a>
             </div>
           </motion.div>
