@@ -1,14 +1,16 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Workflow, Smartphone } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const caseStudies = [
   {
     id: 1,
-    title: "n8n Workflow Automation",
-    description: "Designed and implemented workflow automation solutions to streamline complex business processes and reduce manual overhead.",
-    tags: ["Automation", "Integration", "Process Design"],
+    title: "EOR Expense Intelligence System",
+    description: "Automated multi-country expense processing with AI-powered receipt extraction, tax assessment engine, and intelligent approval routing via Slack.",
+    tags: ["n8n", "OpenAI", "Airtable", "Slack"],
     icon: Workflow,
-    color: "from-orange-500/20 to-amber-500/20",
+    color: "from-gold-primary/20 to-gold-accent/20",
+    link: "/case-study/n8n-expense",
   },
   {
     id: 2,
@@ -17,8 +19,85 @@ const caseStudies = [
     tags: ["Mobile", "UX Research", "Agile"],
     icon: Smartphone,
     color: "from-blue-500/20 to-cyan-500/20",
+    link: null,
   },
 ];
+
+interface CaseStudy {
+  id: number;
+  title: string;
+  description: string;
+  tags: string[];
+  icon: React.ComponentType<{ className?: string }>;
+  color: string;
+  link: string | null;
+}
+
+const CaseStudyCard = ({ study, index }: { study: CaseStudy; index: number }) => {
+  const content = (
+    <>
+      <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${study.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+      
+      <div className="relative z-10">
+        <div className="flex items-start justify-between mb-6">
+          <div className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center border border-border">
+            <study.icon className="w-7 h-7 text-gold-primary" />
+          </div>
+          <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-gold-primary transition-colors" />
+        </div>
+
+        <h3 className="font-display text-2xl font-semibold mb-3">
+          {study.title}
+        </h3>
+        <p className="text-muted-foreground mb-6 leading-relaxed">
+          {study.description}
+        </p>
+
+        <div className="flex flex-wrap gap-2">
+          {study.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-3 py-1 text-sm rounded-full bg-secondary text-secondary-foreground border border-border"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+
+  const className = "group relative block card-gradient rounded-2xl border border-border p-8 hover:border-gold-primary/30 transition-all duration-300";
+  const style = { boxShadow: "var(--shadow-card)" };
+
+  if (study.link) {
+    return (
+      <motion.article
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+      >
+        <Link to={study.link} className={`${className} cursor-pointer`} style={style}>
+          {content}
+        </Link>
+      </motion.article>
+    );
+  }
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+    >
+      <div className={className} style={style}>
+        {content}
+      </div>
+    </motion.article>
+  );
+};
 
 const CaseStudies = () => {
   return (
@@ -41,44 +120,7 @@ const CaseStudies = () => {
 
         <div className="grid md:grid-cols-2 gap-6">
           {caseStudies.map((study, index) => (
-            <motion.article
-              key={study.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative card-gradient rounded-2xl border border-border p-8 hover:border-primary/30 transition-all duration-300"
-              style={{ boxShadow: "var(--shadow-card)" }}
-            >
-              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${study.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-              
-              <div className="relative z-10">
-                <div className="flex items-start justify-between mb-6">
-                  <div className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center border border-border">
-                    <study.icon className="w-7 h-7 text-primary" />
-                  </div>
-                  <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                </div>
-
-                <h3 className="font-display text-2xl font-semibold mb-3">
-                  {study.title}
-                </h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  {study.description}
-                </p>
-
-                <div className="flex flex-wrap gap-2">
-                  {study.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 text-sm rounded-full bg-secondary text-secondary-foreground border border-border"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.article>
+            <CaseStudyCard key={study.id} study={study} index={index} />
           ))}
         </div>
       </div>
