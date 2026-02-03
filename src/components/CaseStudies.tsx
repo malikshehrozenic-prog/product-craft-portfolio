@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Workflow, Smartphone } from "lucide-react";
+import { ArrowUpRight, Workflow, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const caseStudies = [
@@ -14,12 +14,12 @@ const caseStudies = [
   },
   {
     id: 2,
-    title: "Mobile App Experience",
-    description: "Led product development for a mobile application, from discovery through launch, focusing on user-centric design and rapid iteration.",
-    tags: ["Mobile", "UX Research", "Agile"],
-    icon: Smartphone,
-    color: "from-blue-500/20 to-cyan-500/20",
-    link: null,
+    title: "Wage Liability Risk Engine",
+    description: "Real-time EOR termination liability monitoring across 10 countries with automated FX conversion, risk scoring, and concentration alerts.",
+    tags: ["Python", "Streamlit", "Plotly", "Financial Modeling"],
+    icon: TrendingUp,
+    color: "from-emerald-500/20 to-teal-500/20",
+    link: "/case-study/wage-risk",
   },
 ];
 
