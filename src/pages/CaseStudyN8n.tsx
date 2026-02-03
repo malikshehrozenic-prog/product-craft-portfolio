@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowLeft, Workflow, Bot, Database, MessageSquare, ExternalLink, CheckCircle2, AlertTriangle, XCircle, Lightbulb } from "lucide-react";
+import n8nWorkflowScreenshot from "@/assets/n8n-workflow-screenshot.png";
 import { Link } from "react-router-dom";
 
 const workflowStages = [
@@ -101,31 +102,12 @@ const CaseStudyN8n = () => {
                 <span className="font-medium">n8n Workflow Architecture</span>
               </div>
             </div>
-            <div className="p-8 bg-[#1a1a1a] min-h-[300px] flex items-center justify-center">
-              <div className="text-center">
-                <div className="inline-flex items-center gap-4 px-6 py-3 rounded-xl bg-secondary/50 border border-border mb-4">
-                  <div className="flex items-center gap-2 text-sm">
-                    <div className="w-3 h-3 rounded bg-gold-primary/60" />
-                    <span className="text-muted-foreground">Intake Layer</span>
-                  </div>
-                  <div className="text-muted-foreground">→</div>
-                  <div className="flex items-center gap-2 text-sm">
-                    <Bot className="w-4 h-4 text-gold-primary" />
-                    <span className="text-muted-foreground">AI Extraction</span>
-                  </div>
-                  <div className="text-muted-foreground">→</div>
-                  <div className="flex items-center gap-2 text-sm">
-                    <Database className="w-4 h-4 text-gold-primary" />
-                    <span className="text-muted-foreground">Tax Engine</span>
-                  </div>
-                  <div className="text-muted-foreground">→</div>
-                  <div className="flex items-center gap-2 text-sm">
-                    <MessageSquare className="w-4 h-4 text-gold-primary" />
-                    <span className="text-muted-foreground">Approval Routing</span>
-                  </div>
-                </div>
-                <p className="text-sm text-muted-foreground">36-node workflow with 3 trigger paths</p>
-              </div>
+            <div className="p-4 bg-[#1a1a1a]">
+              <img 
+                src={n8nWorkflowScreenshot} 
+                alt="n8n workflow showing 36-node expense automation system with intake, AI extraction, tax engine, and approval routing stages"
+                className="w-full h-auto rounded-lg"
+              />
             </div>
           </motion.div>
 
