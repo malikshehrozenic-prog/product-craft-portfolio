@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Workflow, TrendingUp, FileText } from "lucide-react";
+import { ArrowUpRight, Workflow, TrendingUp, FileText, Globe } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const caseStudies = [
@@ -29,6 +29,15 @@ const caseStudies = [
     icon: FileText,
     color: "from-amber-500/20 to-orange-500/20",
     link: "/case-study/e-requisition",
+  },
+  {
+    id: 4,
+    title: "Global Benefits Engine",
+    description: "Architected localized benefits infrastructure for 160+ countries, transforming a cost center into a $3M GPV profit engine with 10% ARR uplift.",
+    tags: ["Product Strategy", "Systems Design", "Monetization", "GTM"],
+    icon: Globe,
+    color: "from-purple-500/20 to-indigo-500/20",
+    link: "/case-study/benefits-engine",
   },
 ];
 
