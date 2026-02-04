@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Workflow, TrendingUp, FileText, Globe } from "lucide-react";
+import { ArrowUpRight, Workflow, TrendingUp, FileText, Globe, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const caseStudies = [
@@ -38,6 +38,15 @@ const caseStudies = [
     icon: Globe,
     color: "from-purple-500/20 to-indigo-500/20",
     link: "/case-study/benefits-engine",
+  },
+  {
+    id: 5,
+    title: "Payroll Governance Engine",
+    description: "Self-healing validation engine that decoupled payroll ops from headcount, reducing errors by 90% and saving $2.5M annually.",
+    tags: ["Rule Engine", "Validation", "Ops Automation", "Self-Serve"],
+    icon: Shield,
+    color: "from-cyan-500/20 to-blue-500/20",
+    link: "/case-study/payroll-governance",
   },
 ];
 
