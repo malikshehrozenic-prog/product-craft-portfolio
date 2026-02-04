@@ -2,134 +2,162 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Workflow, TrendingUp, FileText, Globe, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const caseStudies = [
+const caseStudies: CaseStudy[] = [
   {
     id: 1,
-    title: "EOR Expense Intelligence System",
-    description: "Automated multi-country expense processing with AI-powered receipt extraction, tax assessment engine, and intelligent approval routing via Slack.",
-    tags: ["n8n", "OpenAI", "Airtable", "Slack"],
+    title: "EOR Expense Intelligence",
+    subtitle: "Automated multi-country expense processing",
+    description: "AI-powered receipt extraction, tax assessment engine, and intelligent approval routing via Slack.",
+    tags: ["n8n", "OpenAI", "Airtable"],
     icon: Workflow,
-    color: "from-gold-primary/20 to-gold-accent/20",
+    gradient: "from-amber-500/20 via-orange-500/10 to-transparent",
     link: "/case-study/n8n-expense",
+    size: "large" as const,
   },
   {
     id: 2,
     title: "Wage Liability Risk Engine",
-    description: "Real-time EOR termination liability monitoring across 10 countries with automated FX conversion, risk scoring, and concentration alerts.",
-    tags: ["Python", "Streamlit", "Plotly", "Financial Modeling"],
+    subtitle: "Real-time EOR termination monitoring",
+    description: "10-country liability monitoring with automated FX conversion and risk scoring.",
+    tags: ["Python", "Streamlit", "Financial Modeling"],
     icon: TrendingUp,
-    color: "from-emerald-500/20 to-teal-500/20",
+    gradient: "from-emerald-500/20 via-teal-500/10 to-transparent",
     link: "/case-study/wage-risk",
+    size: "medium" as const,
   },
   {
     id: 3,
-    title: "E-Requisition Workflow System",
-    description: "End-to-end procurement automation platform processing $1.2B annually with dynamic approval routing and 65% cycle time reduction.",
-    tags: ["BPM Workflow", "SharePoint", "Cost Point", "Process Automation"],
+    title: "E-Requisition Workflow",
+    subtitle: "$1.2B annual procurement automation",
+    description: "Dynamic approval routing with 65% cycle time reduction.",
+    tags: ["BPM", "SharePoint", "Automation"],
     icon: FileText,
-    color: "from-amber-500/20 to-orange-500/20",
+    gradient: "from-violet-500/20 via-purple-500/10 to-transparent",
     link: "/case-study/e-requisition",
+    size: "medium" as const,
   },
   {
     id: 4,
     title: "Global Benefits Engine",
-    description: "Architected localized benefits infrastructure for 160+ countries, transforming a cost center into a $3M GPV profit engine with 10% ARR uplift.",
-    tags: ["Product Strategy", "Systems Design", "Monetization", "GTM"],
+    subtitle: "160+ country benefits infrastructure",
+    description: "Transformed a cost center into a $3M GPV profit engine with 10% ARR uplift.",
+    tags: ["Product Strategy", "Monetization", "GTM"],
     icon: Globe,
-    color: "from-purple-500/20 to-indigo-500/20",
+    gradient: "from-sky-500/20 via-blue-500/10 to-transparent",
     link: "/case-study/benefits-engine",
+    size: "large" as const,
   },
   {
     id: 5,
     title: "Payroll Governance Engine",
-    description: "Self-healing validation engine that decoupled payroll ops from headcount, reducing errors by 90% and saving $2.5M annually.",
-    tags: ["Rule Engine", "Validation", "Ops Automation", "Self-Serve"],
+    subtitle: "Self-healing validation system",
+    description: "Reduced errors by 90% and saved $2.5M annually by decoupling ops from headcount.",
+    tags: ["Rule Engine", "Validation", "Ops Automation"],
     icon: Shield,
-    color: "from-cyan-500/20 to-blue-500/20",
+    gradient: "from-rose-500/20 via-pink-500/10 to-transparent",
     link: "/case-study/payroll-governance",
+    size: "full" as const,
   },
 ];
 
 interface CaseStudy {
   id: number;
   title: string;
+  subtitle: string;
   description: string;
   tags: string[];
   icon: React.ComponentType<{ className?: string }>;
-  color: string;
-  link: string | null;
+  gradient: string;
+  link: string;
+  size: "medium" | "large" | "full";
 }
 
-const CaseStudyCard = ({ study, index }: { study: CaseStudy; index: number }) => {
-  const content = (
-    <>
-      <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${study.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-      
-      <div className="relative z-10">
-        <div className="flex items-start justify-between mb-6">
-          <div className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center border border-border">
-            <study.icon className="w-7 h-7 text-gold-primary" />
-          </div>
-          <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-gold-primary transition-colors" />
-        </div>
+// Type declaration moved above the array
 
-        <h3 className="font-display text-2xl font-semibold mb-3">
-          {study.title}
-        </h3>
-        <p className="text-muted-foreground mb-6 leading-relaxed">
-          {study.description}
-        </p>
-
-        <div className="flex flex-wrap gap-2">
-          {study.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-3 py-1 text-sm rounded-full bg-secondary text-secondary-foreground border border-border"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-    </>
-  );
-
-  const className = "group relative block card-gradient rounded-2xl border border-border p-8 hover:border-gold-primary/30 transition-all duration-300";
-  const style = { boxShadow: "var(--shadow-card)" };
-
-  if (study.link) {
-    return (
-      <motion.article
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-      >
-        <Link to={study.link} className={`${className} cursor-pointer`} style={style}>
-          {content}
-        </Link>
-      </motion.article>
-    );
-  }
+const BentoCard = ({ study, index }: { study: CaseStudy; index: number }) => {
+  const sizeClasses = {
+    medium: "md:col-span-1",
+    large: "md:col-span-1 lg:row-span-1",
+    full: "md:col-span-2",
+  };
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className={sizeClasses[study.size]}
     >
-      <div className={className} style={style}>
-        {content}
-      </div>
+      <Link 
+        to={study.link} 
+        className="group relative block h-full min-h-[320px] rounded-2xl border border-border/50 overflow-hidden transition-all duration-500 hover:border-primary/30"
+      >
+        {/* Background gradient */}
+        <div className={`absolute inset-0 bg-gradient-to-br ${study.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+        
+        {/* Card background */}
+        <div className="absolute inset-0 bg-card/80 backdrop-blur-sm" />
+
+        {/* Content */}
+        <div className="relative z-10 h-full p-8 flex flex-col">
+          {/* Header */}
+          <div className="flex items-start justify-between mb-6">
+            <motion.div 
+              className="w-14 h-14 rounded-xl bg-secondary/80 border border-border/50 flex items-center justify-center"
+              whileHover={{ scale: 1.05, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 400 }}
+            >
+              <study.icon className="w-7 h-7 text-primary" />
+            </motion.div>
+            <motion.div
+              className="w-10 h-10 rounded-full bg-secondary/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+            >
+              <ArrowUpRight className="w-5 h-5 text-primary" />
+            </motion.div>
+          </div>
+
+          {/* Text content */}
+          <div className="flex-1">
+            <p className="text-primary/80 text-sm font-medium tracking-wide uppercase mb-2">
+              {study.subtitle}
+            </p>
+            <h3 className="font-display text-2xl lg:text-3xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
+              {study.title}
+            </h3>
+            <p className="text-muted-foreground leading-relaxed line-clamp-3">
+              {study.description}
+            </p>
+          </div>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 mt-6 pt-6 border-t border-border/30">
+            {study.tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 text-xs font-medium rounded-full bg-secondary/60 text-secondary-foreground border border-border/30"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Hover line accent */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+      </Link>
     </motion.article>
   );
 };
 
 const CaseStudies = () => {
   return (
-    <section id="case-studies" className="py-24 px-6">
-      <div className="container max-w-6xl mx-auto">
+    <section id="case-studies" className="py-32 px-6 relative">
+      {/* Section background accent */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/30 to-transparent pointer-events-none" />
+
+      <div className="container max-w-6xl mx-auto relative">
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -137,17 +165,21 @@ const CaseStudies = () => {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="h-px w-12 bg-primary" />
+            <span className="text-primary font-medium tracking-[0.2em] uppercase text-sm">
+              Selected Work
+            </span>
+          </div>
+          <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
             Case Studies
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl">
-            Real-world examples of products I've shaped, from discovery to delivery.
-          </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {caseStudies.map((study, index) => (
-            <CaseStudyCard key={study.id} study={study} index={index} />
+            <BentoCard key={study.id} study={study} index={index} />
           ))}
         </div>
       </div>
