@@ -2,6 +2,18 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Workflow, TrendingUp, FileText, Globe, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 
+interface CaseStudy {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  tags: string[];
+  icon: React.ComponentType<{ className?: string }>;
+  gradient: string;
+  link: string;
+  size: "medium" | "large" | "full";
+}
+
 const caseStudies: CaseStudy[] = [
   {
     id: 1,
@@ -59,20 +71,6 @@ const caseStudies: CaseStudy[] = [
     size: "full" as const,
   },
 ];
-
-interface CaseStudy {
-  id: number;
-  title: string;
-  subtitle: string;
-  description: string;
-  tags: string[];
-  icon: React.ComponentType<{ className?: string }>;
-  gradient: string;
-  link: string;
-  size: "medium" | "large" | "full";
-}
-
-// Type declaration moved above the array
 
 const BentoCard = ({ study, index }: { study: CaseStudy; index: number }) => {
   const sizeClasses = {
