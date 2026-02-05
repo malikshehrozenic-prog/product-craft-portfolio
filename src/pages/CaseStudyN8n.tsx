@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Workflow, CheckCircle2, AlertTriangle, XCircle, Lightbulb, Clock, DollarSign, Target, Users, Zap, MessageSquare } from "lucide-react";
 import n8nWorkflowScreenshot from "@/assets/n8n-workflow-screenshot.png";
 import { Link } from "react-router-dom";
+import { NarrativeBlock } from "@/components/CaseStudySection";
+import CodeBlock from "@/components/CodeBlock";
 
 const problemNumbers = [
   { value: "$180K", label: "Annual labor on rule-based lookups" },
@@ -77,6 +79,20 @@ const techStack = [
   { name: "Slack", description: "Notifications" },
   { name: "REST APIs", description: "Currency conversion" },
 ];
+
+const routingLogic = `// Tax Classification Router
+def route_expense(expense, country):
+  confidence = model.predict(expense)
+  
+  if confidence > 0.95:
+    return "AUTO_APPROVE"  # High confidence
+  elif confidence < 0.80:
+    return "AUTO_REJECT"   # Needs attention
+  else:
+    # The expensive path - human review
+    return "ROUTE_TO_SPECIALIST"
+    
+# Result: 34% auto-approved, 0 compliance issues`;
 
 const CaseStudyN8n = () => {
   return (
@@ -187,6 +203,53 @@ const CaseStudyN8n = () => {
                 </motion.div>
               ))}
             </div>
+          </motion.section>
+
+          {/* Strategic Narrative: Context/Conflict/Bet */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
+            <h2 className="font-display text-2xl md:text-3xl font-bold mb-6 text-gold-light">
+              Strategic Narrative
+            </h2>
+            <div className="space-y-4">
+              <NarrativeBlock type="context">
+                During quarterly reviews with Payroll Operations, I uncovered a hidden time sink: specialists were spending <span className="text-foreground font-semibold">15+ hours per week</span> researching tax rules for employee expenses across 10+ countries. Each submission became a research project—"Is this meal taxable in Germany?" "Can we reclaim VAT in the UK?"
+              </NarrativeBlock>
+
+              <NarrativeBlock type="conflict">
+                I wrote a product brief and took it to Engineering. Their response: <span className="text-foreground italic">"Solid problem, but we're committed through Q3. Earliest is Q1 next year."</span> The "Safe" option was to wait. The "Fast" option was to build something myself—but stakeholders feared a PM-built tool would create tech debt or compliance risk.
+              </NarrativeBlock>
+
+              <NarrativeBlock type="bet">
+                I proposed a <span className="text-foreground font-semibold">"Guardrails, Not Gates"</span> strategy: I'd build and maintain it myself using no-code tools. I'd pilot with just Germany and UK (45% of volume), and I'd give stakeholders a kill switch. If it failed, we'd learn something. If it worked, Engineering would have a validated reference implementation.
+              </NarrativeBlock>
+            </div>
+          </motion.section>
+
+          {/* Technical Implementation */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
+            <h2 className="font-display text-2xl md:text-3xl font-bold mb-6 text-gold-light">
+              The Trade-Off Matrix
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              We traded "100% Automation" for "100% Safety." Instead of letting AI decide everything, we built a confidence-based router that triages expenses into three buckets:
+            </p>
+            <CodeBlock 
+              code={routingLogic}
+              language="python"
+              filename="routing_logic.py"
+            />
           </motion.section>
 
           {/* Why Not Just Build It? */}
