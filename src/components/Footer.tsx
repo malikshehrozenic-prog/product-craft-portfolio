@@ -37,9 +37,8 @@ const Footer = forwardRef<HTMLElement>((_, ref) => {
           {/* Social links */}
           <div className="flex items-center justify-center gap-4 mb-16">
             {[
-              { icon: Linkedin, label: "LinkedIn", href: "#" },
-              { icon: Mail, label: "Email", href: "#" },
-              { icon: Github, label: "GitHub", href: "#" },
+              { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/msanranb/" },
+              { icon: Mail, label: "Email", href: "mailto:malikshehrozeali@gmail.com" },
             ].map((social, i) => (
               <motion.a
                 key={social.label}
@@ -58,7 +57,7 @@ const Footer = forwardRef<HTMLElement>((_, ref) => {
 
         {/* Bottom bar */}
         <div className="pt-8 border-t border-border/30 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Product Portfolio</p>
+          <p>© {new Date().getFullYear()} Malik Ali</p>
           <p className="flex items-center gap-2">
             Built with intention
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
