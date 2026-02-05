@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Linkedin, Mail, Github, ArrowUpRight } from "lucide-react";
+import { forwardRef } from "react";
 
-const Footer = () => {
+const Footer = forwardRef<HTMLElement>((_, ref) => {
   return (
-    <footer className="relative py-24 px-6 overflow-hidden">
+    <footer ref={ref} className="relative py-24 px-6 overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-t from-muted/40 to-transparent pointer-events-none" />
       
@@ -66,6 +67,7 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
+});
+Footer.displayName = "Footer";
 
 export default Footer;
