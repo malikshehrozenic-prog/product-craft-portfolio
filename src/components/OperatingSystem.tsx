@@ -13,7 +13,7 @@ const OperatingSystem = ({ onCaseSelect }: OperatingSystemProps) => {
 
   return (
     <section id="operating-system" className="py-32 px-6 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-muted/20 via-transparent to-muted/20 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-muted/10 via-transparent to-muted/10 pointer-events-none" />
       
       <div className="container max-w-6xl mx-auto relative">
         {/* Section header */}
@@ -25,30 +25,30 @@ const OperatingSystem = ({ onCaseSelect }: OperatingSystemProps) => {
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="h-px w-12 bg-primary" />
-            <span className="text-primary font-medium tracking-[0.2em] uppercase text-sm">
-              How I Work
+            <span className="text-primary font-medium tracking-[0.2em] uppercase text-xs font-body">
+              My Operating System
             </span>
           </div>
-          <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4">
-            Operating System
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight mb-4">
+            How I think about product work.
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl">
-            Not frameworks for frameworks' sake. Principles tested across 11 years, 4 companies, and 5 product areas.
+          <p className="text-muted-foreground text-lg max-w-2xl font-body">
+            Five principles, each forged in real decisions. Not frameworks I read about — patterns I've found myself returning to across 12 years and 4 companies.
           </p>
         </motion.div>
 
         {/* Tabs + Content */}
-        <div className="grid md:grid-cols-[240px_1fr] gap-8">
+        <div className="grid md:grid-cols-[220px_1fr] gap-8">
           {/* Tab buttons */}
           <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-4 md:pb-0">
             {PHILOSOPHY.map((p) => (
               <button
                 key={p.id}
                 onClick={() => setActiveTab(p.id)}
-                className={`px-4 py-3 rounded-lg text-left text-sm font-medium transition-all whitespace-nowrap ${
+                className={`px-4 py-3 rounded-lg text-left text-sm font-body font-medium transition-all whitespace-nowrap ${
                   activeTab === p.id
                     ? 'bg-primary/10 text-primary border border-primary/30'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
                 }`}
               >
                 {p.label}
@@ -61,24 +61,24 @@ const OperatingSystem = ({ onCaseSelect }: OperatingSystemProps) => {
             key={activeTab}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-card/50 rounded-2xl p-8 border border-border/50"
+            className="bg-card/50 rounded-xl p-6 md:p-8 border border-border/50"
           >
-            <h3 className="font-display text-2xl md:text-3xl font-bold mb-8">{current.title}</h3>
+            <h3 className="font-display text-2xl md:text-3xl font-normal mb-8">{current.title}</h3>
             
             <div className="space-y-6 mb-8">
               {current.items.map((item, i) => (
                 <div key={i}>
-                  <h4 className="font-display font-bold text-primary mb-2">{item.heading}</h4>
-                  <p className="text-muted-foreground leading-relaxed">{item.text}</p>
+                  <h4 className="font-display text-lg font-medium text-primary mb-2">{item.heading}</h4>
+                  <p className="text-muted-foreground leading-relaxed font-body text-sm">{item.text}</p>
                 </div>
               ))}
             </div>
 
             <div className="pt-6 border-t border-border/30">
-              <p className="text-sm text-muted-foreground mb-3">{current.evidence}</p>
+              <p className="text-sm text-muted-foreground mb-3 font-body italic">{current.evidence}</p>
               <button
                 onClick={() => onCaseSelect(current.caseLink)}
-                className="inline-flex items-center gap-2 text-primary hover:text-primary/80 text-sm font-medium group"
+                className="inline-flex items-center gap-2 text-primary hover:text-primary/80 text-sm font-medium group font-body"
               >
                 Read the case study
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -92,34 +92,42 @@ const OperatingSystem = ({ onCaseSelect }: OperatingSystemProps) => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          id="about"
           className="mt-24"
         >
-          <h3 className="font-display text-3xl font-bold mb-8">Career Arc</h3>
-          <div className="space-y-4">
+          <h3 className="font-display text-3xl font-normal mb-8">Career Arc</h3>
+          <div className="space-y-3">
             {CAREER_ARC.map((c, i) => (
-              <div key={i} className="bg-card/50 rounded-xl p-6 border border-border/50 grid md:grid-cols-[140px_1fr] gap-4">
+              <motion.div 
+                key={i} 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="bg-card/50 rounded-lg p-5 border border-border/50 grid md:grid-cols-[140px_1fr] gap-4"
+              >
                 <div>
                   <p className="text-primary font-mono text-sm">{c.period}</p>
-                  <p className="text-xs text-muted-foreground">{c.location}</p>
+                  <p className="text-xs text-muted-foreground font-body">{c.location}</p>
                 </div>
                 <div>
-                  <p className="font-display font-bold">{c.company}</p>
-                  <p className="text-sm text-primary mb-2">{c.role}</p>
-                  <p className="text-sm text-muted-foreground">{c.description}</p>
+                  <p className="font-display text-lg font-medium">{c.company}</p>
+                  <p className="text-sm text-primary mb-2 font-body">{c.role}</p>
+                  <p className="text-sm text-muted-foreground font-body">{c.description}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
           
           {/* Education & Tech */}
           <div className="grid md:grid-cols-2 gap-6 mt-8">
-            <div className="bg-card/50 rounded-xl p-6 border border-border/50">
-              <h4 className="font-display font-bold text-primary mb-2">Education</h4>
-              <p className="text-sm text-muted-foreground">{EDUCATION}</p>
+            <div className="bg-card/50 rounded-lg p-5 border border-border/50">
+              <h4 className="font-display text-lg font-medium text-primary mb-2">Education</h4>
+              <p className="text-sm text-muted-foreground font-body">{EDUCATION}</p>
             </div>
-            <div className="bg-card/50 rounded-xl p-6 border border-border/50">
-              <h4 className="font-display font-bold text-primary mb-2">Technical Stack</h4>
-              <p className="text-sm text-muted-foreground">{TECH_STACK}</p>
+            <div className="bg-card/50 rounded-lg p-5 border border-border/50">
+              <h4 className="font-display text-lg font-medium text-primary mb-2">Technical Stack</h4>
+              <p className="text-sm text-muted-foreground font-body">{TECH_STACK}</p>
             </div>
           </div>
         </motion.div>

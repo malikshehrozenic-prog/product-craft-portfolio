@@ -2,93 +2,111 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
-/* PM Portfolio Design System - Sophisticated Dark Theme */
+/* PM Portfolio Design System - Bloomberg Terminal meets Monocle */
 
 @layer base {
   :root {
-    --background: 240 20% 4%;
-    --foreground: 45 30% 96%;
+    /* Core backgrounds */
+    --background: 240 10% 4%;
+    --foreground: 40 20% 91%;
 
-    --card: 240 18% 8%;
-    --card-foreground: 45 30% 96%;
+    /* Surface levels */
+    --card: 240 8% 7%;
+    --card-foreground: 40 20% 91%;
+    --popover: 240 8% 7%;
+    --popover-foreground: 40 20% 91%;
 
-    --popover: 240 18% 8%;
-    --popover-foreground: 45 30% 96%;
+    /* Brand accent - Gold */
+    --primary: 40 60% 55%;
+    --primary-foreground: 240 10% 4%;
 
-    --primary: 45 85% 55%;
-    --primary-foreground: 240 20% 4%;
+    /* Secondary surfaces */
+    --secondary: 240 8% 10%;
+    --secondary-foreground: 40 15% 85%;
 
-    --secondary: 240 15% 12%;
-    --secondary-foreground: 45 25% 88%;
+    /* Muted elements */
+    --muted: 240 8% 8%;
+    --muted-foreground: 35 10% 50%;
 
-    --muted: 240 15% 10%;
-    --muted-foreground: 45 10% 50%;
+    /* Accent for highlights */
+    --accent: 40 70% 58%;
+    --accent-foreground: 240 10% 4%;
 
-    --accent: 35 100% 50%;
-    --accent-foreground: 240 20% 4%;
-
-    --destructive: 0 84% 60%;
+    /* Semantic colors */
+    --destructive: 0 65% 55%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 45 20% 18%;
-    --input: 45 20% 18%;
-    --ring: 45 85% 55%;
+    /* Borders and inputs */
+    --border: 240 8% 12%;
+    --border-hover: 240 8% 18%;
+    --input: 240 8% 12%;
+    --ring: 40 60% 55%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    /* Royal Gold Custom tokens */
-    --gold-light: 45 90% 65%;
-    --gold-dark: 38 80% 40%;
-    --gradient-hero: linear-gradient(135deg, hsl(45 85% 55% / 0.12) 0%, hsl(35 100% 50% / 0.05) 30%, hsl(240 20% 4%) 70%);
-    --gradient-card: linear-gradient(180deg, hsl(240 18% 10%) 0%, hsl(240 18% 6%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(50 95% 60%) 0%, hsl(38 90% 50%) 50%, hsl(30 85% 45%) 100%);
-    --gradient-gold-shine: linear-gradient(90deg, hsl(45 85% 55%) 0%, hsl(50 100% 70%) 50%, hsl(45 85% 55%) 100%);
-    --shadow-glow: 0 0 80px hsl(45 85% 55% / 0.2);
-    --shadow-gold: 0 4px 30px hsl(45 85% 55% / 0.15);
-    --shadow-card: 0 4px 24px hsl(240 20% 2% / 0.5);
-    --shadow-card-hover: 0 8px 40px hsl(240 20% 2% / 0.7);
+    /* Status colors */
+    --status-green: 145 50% 50%;
+    --status-amber: 40 85% 55%;
+    --status-red: 0 55% 55%;
 
-    /* Sidebar defaults */
-    --sidebar-background: 240 18% 6%;
-    --sidebar-foreground: 45 25% 90%;
-    --sidebar-primary: 45 85% 55%;
-    --sidebar-primary-foreground: 240 20% 4%;
-    --sidebar-accent: 240 15% 12%;
-    --sidebar-accent-foreground: 45 25% 90%;
-    --sidebar-border: 45 20% 18%;
-    --sidebar-ring: 45 85% 55%;
+    /* Custom tokens */
+    --gold-light: 40 80% 70%;
+    --gold-dim: 40 60% 55% / 0.10;
+    --gold-glow: 40 60% 55% / 0.04;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(40 60% 55% / 0.08) 0%, hsl(40 60% 55% / 0.02) 30%, hsl(240 10% 4%) 70%);
+    --gradient-card: linear-gradient(180deg, hsl(240 8% 9%) 0%, hsl(240 8% 5%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(40 60% 55%) 0%, hsl(40 80% 70%) 100%);
+    --gradient-gold-shimmer: linear-gradient(90deg, hsl(40 60% 55%), hsl(40 80% 70%), hsl(40 60% 55%), hsl(40 80% 70%), hsl(40 60% 55%));
+
+    /* Shadows */
+    --shadow-glow: 0 0 80px hsl(40 60% 55% / 0.15);
+    --shadow-gold: 0 4px 30px hsl(40 60% 55% / 0.1);
+    --shadow-card: 0 4px 24px hsl(240 10% 2% / 0.5);
+
+    /* Sidebar */
+    --sidebar-background: 240 8% 5%;
+    --sidebar-foreground: 40 15% 88%;
+    --sidebar-primary: 40 60% 55%;
+    --sidebar-primary-foreground: 240 10% 4%;
+    --sidebar-accent: 240 8% 10%;
+    --sidebar-accent-foreground: 40 15% 88%;
+    --sidebar-border: 240 8% 12%;
+    --sidebar-ring: 40 60% 55%;
   }
 
   .dark {
-    --background: 240 20% 4%;
-    --foreground: 45 30% 96%;
-    --card: 240 18% 8%;
-    --card-foreground: 45 30% 96%;
-    --popover: 240 18% 8%;
-    --popover-foreground: 45 30% 96%;
-    --primary: 45 85% 55%;
-    --primary-foreground: 240 20% 4%;
-    --secondary: 240 15% 12%;
-    --secondary-foreground: 45 25% 88%;
-    --muted: 240 15% 10%;
-    --muted-foreground: 45 10% 50%;
-    --accent: 35 100% 50%;
-    --accent-foreground: 240 20% 4%;
+    /* Same as root for this dark-first design */
+    --background: 240 10% 4%;
+    --foreground: 40 20% 91%;
+    --card: 240 8% 7%;
+    --card-foreground: 40 20% 91%;
+    --popover: 240 8% 7%;
+    --popover-foreground: 40 20% 91%;
+    --primary: 40 60% 55%;
+    --primary-foreground: 240 10% 4%;
+    --secondary: 240 8% 10%;
+    --secondary-foreground: 40 15% 85%;
+    --muted: 240 8% 8%;
+    --muted-foreground: 35 10% 50%;
+    --accent: 40 70% 58%;
+    --accent-foreground: 240 10% 4%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 45 20% 18%;
-    --input: 45 20% 18%;
-    --ring: 45 85% 55%;
-    --sidebar-background: 240 18% 6%;
-    --sidebar-foreground: 45 25% 90%;
-    --sidebar-primary: 45 85% 55%;
-    --sidebar-primary-foreground: 240 20% 4%;
-    --sidebar-accent: 240 15% 12%;
-    --sidebar-accent-foreground: 45 25% 90%;
-    --sidebar-border: 45 20% 18%;
-    --sidebar-ring: 45 85% 55%;
+    --border: 240 8% 12%;
+    --input: 240 8% 12%;
+    --ring: 40 60% 55%;
+    --sidebar-background: 240 8% 5%;
+    --sidebar-foreground: 40 15% 88%;
+    --sidebar-primary: 40 60% 55%;
+    --sidebar-primary-foreground: 240 10% 4%;
+    --sidebar-accent: 240 8% 10%;
+    --sidebar-accent-foreground: 40 15% 88%;
+    --sidebar-border: 240 8% 12%;
+    --sidebar-ring: 40 60% 55%;
   }
 }
 
@@ -97,27 +115,48 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Outfit', system-ui, sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-family: 'Instrument Serif', Georgia, serif;
+  }
+
+  ::selection {
+    background: hsl(40 60% 55% / 0.3);
+    color: hsl(40 20% 95%);
   }
 }
 
 @layer utilities {
+  .font-display {
+    font-family: 'Instrument Serif', Georgia, serif;
+  }
+
+  .font-body {
+    font-family: 'Outfit', system-ui, sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
   .text-gradient {
     @apply bg-clip-text text-transparent;
     background-image: var(--gradient-accent);
   }
 
-  .text-gold-shine {
+  .text-gold-shimmer {
     @apply bg-clip-text text-transparent;
-    background-image: var(--gradient-gold-shine);
+    background-image: var(--gradient-gold-shimmer);
     background-size: 200% 100%;
-    animation: shimmer 3s ease-in-out infinite;
+    animation: shimmer 8s linear infinite;
   }
 
   .card-gradient {
@@ -136,12 +175,43 @@
     box-shadow: var(--shadow-gold);
   }
 
-  .border-gold {
-    border-color: hsl(45 85% 55% / 0.3);
+  /* Film grain texture overlay */
+  .noise::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 }
 
 @keyframes shimmer {
   0%, 100% { background-position: -200% 0; }
   50% { background-position: 200% 0; }
+}
+
+@keyframes fadeUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(24px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
 }
