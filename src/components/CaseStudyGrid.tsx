@@ -31,79 +31,67 @@ const CaseStudyCard = ({
     >
       <button
         onClick={() => onSelect(study.id)}
-        className="group relative block w-full h-full min-h-[380px] text-left rounded-2xl border border-border/50 overflow-hidden transition-all duration-500 hover:border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50"
+        className="group relative block w-full h-full min-h-[340px] text-left rounded-xl border border-border/50 overflow-hidden transition-all duration-500 hover:border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50"
       >
         {/* Background gradient on hover */}
         <div 
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{ 
-            background: `linear-gradient(135deg, ${study.color}20 0%, transparent 60%)` 
+            background: `linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, transparent 60%)` 
           }}
         />
         
         {/* Card background */}
-        <div className="absolute inset-0 bg-card/80 backdrop-blur-sm" />
+        <div className="absolute inset-0 card-gradient" />
 
         {/* Content */}
-        <div className="relative z-10 h-full p-8 flex flex-col">
+        <div className="relative z-10 h-full p-6 md:p-8 flex flex-col">
           {/* Header */}
           <div className="flex items-start justify-between mb-6">
             <div className="flex items-center gap-4">
-              <span 
-                className="text-sm font-mono tracking-wider"
-                style={{ color: study.color }}
-              >
+              <span className="text-sm font-mono tracking-wider text-primary">
                 {study.number}
               </span>
               <motion.div 
-                className="w-12 h-12 rounded-xl bg-secondary/80 border border-border/50 flex items-center justify-center"
+                className="w-10 h-10 rounded-lg bg-muted/80 border border-border/50 flex items-center justify-center"
                 whileHover={{ scale: 1.05, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 400 }}
               >
-                <Icon className="w-6 h-6 text-primary" />
+                <Icon className="w-5 h-5 text-primary" />
               </motion.div>
             </div>
             <motion.div
-              className="w-10 h-10 rounded-full bg-secondary/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+              className="w-9 h-9 rounded-full bg-muted/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
             >
-              <ArrowUpRight className="w-5 h-5 text-primary" />
+              <ArrowUpRight className="w-4 h-4 text-primary" />
             </motion.div>
           </div>
 
           {/* Text content */}
           <div className="flex-1">
-            <p 
-              className="text-sm font-medium tracking-wide uppercase mb-2"
-              style={{ color: study.color }}
-            >
+            <p className="text-xs font-medium tracking-wide uppercase mb-2 text-primary/80 font-body">
               {study.subtitle}
             </p>
-            <h3 className="font-display text-2xl lg:text-3xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
+            <h3 className="font-display text-xl lg:text-2xl font-normal mb-3 group-hover:text-primary transition-colors duration-300">
               {study.title}
             </h3>
-            <p className="text-muted-foreground leading-relaxed line-clamp-3 mb-4">
+            <p className="text-muted-foreground leading-relaxed line-clamp-2 text-sm font-body mb-4">
               {study.oneLiner}
             </p>
             
             {/* Impact badge */}
-            <div 
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium"
-              style={{ 
-                backgroundColor: `${study.color}15`,
-                color: study.color
-              }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: study.color }} />
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono bg-primary/10 text-primary">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse-soft" />
               {study.impact}
             </div>
           </div>
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mt-6 pt-6 border-t border-border/30">
-            {study.tags.slice(0, 4).map((tag) => (
+            {study.tags.slice(0, 3).map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 text-xs font-medium rounded-full bg-secondary/60 text-secondary-foreground border border-border/30"
+                className="px-2.5 py-1 text-xs font-body rounded-md bg-muted/60 text-muted-foreground border border-border/30"
               >
                 {tag}
               </span>
@@ -113,8 +101,7 @@ const CaseStudyCard = ({
 
         {/* Hover line accent */}
         <div 
-          className="absolute bottom-0 left-0 right-0 h-1 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-          style={{ background: `linear-gradient(90deg, ${study.color}, ${study.color}80)` }}
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
         />
       </button>
     </motion.article>
@@ -129,7 +116,7 @@ const CaseStudyGrid = ({ onSelect }: CaseStudyGridProps) => {
   return (
     <section id="case-studies" className="py-32 px-6 relative">
       {/* Section background accent */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/30 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/20 to-transparent pointer-events-none" />
 
       <div className="container max-w-6xl mx-auto relative">
         {/* Section header */}
@@ -142,19 +129,19 @@ const CaseStudyGrid = ({ onSelect }: CaseStudyGridProps) => {
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="h-px w-12 bg-primary" />
-            <span className="text-primary font-medium tracking-[0.2em] uppercase text-sm">
+            <span className="text-primary font-medium tracking-[0.2em] uppercase text-xs font-body">
               Selected Work
             </span>
           </div>
-          <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4">
-            Case Studies
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight mb-4">
+            Five bets on the same thesis.
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl">
-            Each project tells a complete story: the problem, the stakeholders, the trade-offs, and the outcome. Click to explore.
+          <p className="text-muted-foreground text-lg max-w-2xl font-body">
+            Each case study represents a different facet of turning financial complexity into product advantage — from real-time risk engines to AI-powered operations.
           </p>
         </motion.div>
 
-        {/* Bento Grid */}
+        {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {CASE_STUDIES.map((study, index) => (
             <CaseStudyCard 

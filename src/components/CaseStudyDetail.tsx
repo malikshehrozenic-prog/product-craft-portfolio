@@ -1,11 +1,13 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, Quote, CheckCircle2, XCircle, Users, Scale, BarChart3, MessageSquare, Lightbulb, AlertTriangle } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowLeft, ArrowRight, Quote, CheckCircle2, XCircle, Users, Scale, BarChart3, MessageSquare, Lightbulb, AlertTriangle } from "lucide-react";
 import { CaseStudy } from "@/data/caseStudies";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface CaseStudyDetailProps {
   study: CaseStudy;
   onBack: () => void;
+  onNext?: () => void;
+  nextStudy?: CaseStudy | null;
 }
 
 const SectionTitle = ({ children, icon: Icon }: { children: React.ReactNode; icon: React.ComponentType<{ className?: string }> }) => (
@@ -13,11 +15,11 @@ const SectionTitle = ({ children, icon: Icon }: { children: React.ReactNode; ico
     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
       <Icon className="w-5 h-5 text-primary" />
     </div>
-    <h3 className="font-display text-2xl font-bold">{children}</h3>
+    <h3 className="font-display text-2xl font-medium">{children}</h3>
   </div>
 );
 
-const CaseStudyDetail = ({ study, onBack }: CaseStudyDetailProps) => {
+const CaseStudyDetail = ({ study, onBack, onNext, nextStudy }: CaseStudyDetailProps) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -357,6 +359,30 @@ const CaseStudyDetail = ({ study, onBack }: CaseStudyDetailProps) => {
               </div>
             </TabsContent>
           </Tabs>
+
+          {/* Next Case Study */}
+          {nextStudy && onNext && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mt-20 pt-8 border-t border-border/30"
+            >
+              <button
+                onClick={onNext}
+                className="w-full group flex items-center justify-between p-6 rounded-xl bg-card/50 border border-border/50 hover:border-primary/30 transition-all"
+              >
+                <div className="text-left">
+                  <span className="text-xs text-muted-foreground uppercase tracking-wider font-body">Next Case Study</span>
+                  <h3 className="font-display text-xl md:text-2xl group-hover:text-primary transition-colors">
+                    {nextStudy.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground font-body">{nextStudy.oneLiner}</p>
+                </div>
+                <ArrowRight className="w-6 h-6 text-muted-foreground group-hover:text-primary group-hover:translate-x-2 transition-all" />
+              </button>
+            </motion.div>
+          )}
         </div>
       </section>
     </motion.div>
