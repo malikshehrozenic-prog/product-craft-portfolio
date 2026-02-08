@@ -3,19 +3,24 @@ import { useRef } from "react";
 
 const EVIDENCE_CARDS = [
   {
-    value: "$36–48M",
-    label: "Collect-before-payout exposure",
-    description: "Mapped the full financial risk surface of client invoicing timing gaps — a blind spot the business had never quantified.",
+    value: "$50M+",
+    label: "Financial Operations Productized",
+    description: "From federal procurement to EOR payroll — turned manual financial workflows into software systems across 4 companies.",
   },
   {
-    value: "5 Product Areas",
-    label: "Owned simultaneously",
-    description: "Benefits, Expenses, Payroll Changes, Invoicing & Pricing Infrastructure, AI Product Tooling — all interconnected, all laddering to one thesis.",
+    value: "6 Products",
+    label: "Shipped across 4 companies",
+    description: "Mobile wallets, procurement platforms, insurance quoting engines, payroll risk dashboards, AI expense systems, benefits monetization.",
   },
   {
-    value: "Competitive Intel",
-    label: "vs. Deel, Remote, Rippling, Papaya",
-    description: "Built frameworks comparing feature parity, pricing architecture, and compliance depth across the EOR landscape to inform product strategy.",
+    value: "180+",
+    label: "Countries of cross-border complexity",
+    description: "Every product I've built operates across regulatory boundaries — different tax regimes, labor laws, payment rails, and compliance requirements.",
+  },
+  {
+    value: "$0 → Revenue",
+    label: "Three times",
+    description: "Turned cost centers into revenue lines at FINCA (agent banking fees), Oyster (benefits monetization), and Oyster (pricing intelligence).",
   },
 ];
 
@@ -58,9 +63,8 @@ const StrategicThesis = () => {
             transition={{ duration: 0.8 }}
             className="font-display text-3xl md:text-4xl lg:text-5xl font-normal leading-tight mb-8"
           >
-            EOR is a{" "}
-            <span className="text-gradient italic">financial risk management problem</span>{" "}
-            disguised as an HR problem.
+            Every industry I've worked in has the same hidden problem:{" "}
+            <span className="text-gradient italic">financial complexity that everyone treats as someone else's job.</span>
           </motion.blockquote>
 
           <motion.p
@@ -70,11 +74,9 @@ const StrategicThesis = () => {
             transition={{ delay: 0.2 }}
             className="text-muted-foreground text-lg leading-relaxed max-w-4xl font-body"
           >
-            Every employee an EOR onboards in a new country is a liability position — severance, 
-            notice pay, statutory bonuses, accrued benefits, currency exposure. The industry treats 
-            these as back-office compliance tasks. I believe the winners will be the platforms that 
-            treat payroll infrastructure like fintech infrastructure: real-time risk visibility, 
-            programmatic compliance, and financial intelligence that turns cost centers into pricing advantages.
+            In microfinance, sending money to a village agent across 20 countries was treated as an operations problem. 
+            In federal consulting, $1.2B in procurement was managed through paper forms. In EOR, multi-country payroll 
+            liabilities worth tens of millions were tracked in quarterly spreadsheets.
           </motion.p>
 
           <motion.p
@@ -84,16 +86,13 @@ const StrategicThesis = () => {
             transition={{ delay: 0.3 }}
             className="text-muted-foreground text-lg leading-relaxed max-w-4xl mt-6 font-body"
           >
-            At Oyster HR, I own five product areas that collectively manage over $50M in financial 
-            exposure across 160+ countries. Every product I've shipped — from a real-time wage 
-            liability engine to an AI-powered expense intelligence pipeline — is a bet on this thesis: 
-            that the EOR platform which best understands its own financial exposure will outprice, 
-            out-margin, and outlast every competitor.
+            The pattern is always the same: regulated, multi-country financial operations that everyone assumes 
+            can't be productized. I keep finding they can — and the companies that do it first win their markets.
           </motion.p>
         </motion.div>
 
-        {/* Evidence cards */}
-        <div className="grid md:grid-cols-3 gap-6">
+        {/* Evidence cards - 4 cards in a row */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {EVIDENCE_CARDS.map((card, i) => (
             <motion.div
               key={i}

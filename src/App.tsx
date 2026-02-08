@@ -2,13 +2,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
-import CaseStudyN8n from "./pages/CaseStudyN8n";
-import CaseStudyWageRisk from "./pages/CaseStudyWageRisk";
-import CaseStudyERequisition from "./pages/CaseStudyERequisition";
-import CaseStudyBenefits from "./pages/CaseStudyBenefits";
-import CaseStudyPayroll from "./pages/CaseStudyPayroll";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,11 +16,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/case-study/n8n-expense" element={<CaseStudyN8n />} />
-          <Route path="/case-study/wage-risk" element={<CaseStudyWageRisk />} />
-          <Route path="/case-study/e-requisition" element={<CaseStudyERequisition />} />
-          <Route path="/case-study/benefits-engine" element={<CaseStudyBenefits />} />
-          <Route path="/case-study/payroll-governance" element={<CaseStudyPayroll />} />
+          {/* Redirect old case study routes to home */}
+          <Route path="/case-study/*" element={<Navigate to="/" replace />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

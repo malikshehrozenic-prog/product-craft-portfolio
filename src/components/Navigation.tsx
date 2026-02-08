@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { id: "case-studies", label: "Work" },
   { id: "operating-system", label: "System" },
   { id: "about", label: "About" },
+  { id: "contact", label: "Contact" },
 ];
 
 const Navigation = ({ activeSection }: NavigationProps) => {

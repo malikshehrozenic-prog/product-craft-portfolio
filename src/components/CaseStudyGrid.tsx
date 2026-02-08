@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, TrendingUp, Globe, Workflow, FileText, Shield } from "lucide-react";
+import { ArrowUpRight, TrendingUp, Globe, Workflow, FileText, Shield, Wallet, DollarSign } from "lucide-react";
 import { CASE_STUDIES, CaseStudy } from "@/data/caseStudies";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  "wage-risk": TrendingUp,
+  "pricing-intelligence": DollarSign,
   "benefits-engine": Globe,
+  "wage-risk": TrendingUp,
   "expense-intelligence": Workflow,
+  "mobile-wallet": Wallet,
   "e-requisition": FileText,
   "payroll-governance": Shield,
 };
@@ -13,11 +15,13 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 const CaseStudyCard = ({ 
   study, 
   index, 
-  onSelect 
+  onSelect,
+  isFeatured = false,
 }: { 
   study: CaseStudy; 
   index: number;
   onSelect: (id: string) => void;
+  isFeatured?: boolean;
 }) => {
   const Icon = iconMap[study.id] || TrendingUp;
   
@@ -27,11 +31,13 @@ const CaseStudyCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={index === 0 ? "md:col-span-2" : ""}
+      className={isFeatured ? "md:col-span-2" : ""}
     >
       <button
         onClick={() => onSelect(study.id)}
-        className="group relative block w-full h-full min-h-[340px] text-left rounded-xl border border-border/50 overflow-hidden transition-all duration-500 hover:border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50"
+        className={`group relative block w-full h-full text-left rounded-xl border border-border/50 overflow-hidden transition-all duration-500 hover:border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 ${
+          isFeatured ? "min-h-[380px]" : "min-h-[340px]"
+        }`}
       >
         {/* Background gradient on hover */}
         <div 
@@ -59,6 +65,10 @@ const CaseStudyCard = ({
               >
                 <Icon className="w-5 h-5 text-primary" />
               </motion.div>
+              {/* Company badge */}
+              <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-1 rounded">
+                {study.company}
+              </span>
             </div>
             <motion.div
               className="w-9 h-9 rounded-full bg-muted/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
@@ -72,10 +82,14 @@ const CaseStudyCard = ({
             <p className="text-xs font-medium tracking-wide uppercase mb-2 text-primary/80 font-body">
               {study.subtitle}
             </p>
-            <h3 className="font-display text-xl lg:text-2xl font-normal mb-3 group-hover:text-primary transition-colors duration-300">
+            <h3 className={`font-display font-normal mb-3 group-hover:text-primary transition-colors duration-300 ${
+              isFeatured ? "text-2xl lg:text-3xl" : "text-xl lg:text-2xl"
+            }`}>
               {study.title}
             </h3>
-            <p className="text-muted-foreground leading-relaxed line-clamp-2 text-sm font-body mb-4">
+            <p className={`text-muted-foreground leading-relaxed text-sm font-body mb-4 ${
+              isFeatured ? "line-clamp-3" : "line-clamp-2"
+            }`}>
               {study.oneLiner}
             </p>
             
@@ -86,9 +100,14 @@ const CaseStudyCard = ({
             </div>
           </div>
 
+          {/* Team size (new) */}
+          <p className="text-xs text-muted-foreground font-body mt-4 line-clamp-1">
+            {study.teamSize}
+          </p>
+
           {/* Tags */}
-          <div className="flex flex-wrap gap-2 mt-6 pt-6 border-t border-border/30">
-            {study.tags.slice(0, 3).map((tag) => (
+          <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border/30">
+            {study.tags.slice(0, isFeatured ? 4 : 3).map((tag) => (
               <span
                 key={tag}
                 className="px-2.5 py-1 text-xs font-body rounded-md bg-muted/60 text-muted-foreground border border-border/30"
@@ -134,14 +153,14 @@ const CaseStudyGrid = ({ onSelect }: CaseStudyGridProps) => {
             </span>
           </div>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight mb-4">
-            Five bets on the same thesis.
+            Six products. Four companies. One pattern.
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl font-body">
-            Each case study represents a different facet of turning financial complexity into product advantage — from real-time risk engines to AI-powered operations.
+            From mobile wallets in emerging markets to AI-powered expense processing in 160 countries — every product turns financial complexity into product advantage.
           </p>
         </motion.div>
 
-        {/* Grid */}
+        {/* Grid - Row 1: Featured (full width), Row 2-3: 2 columns, Row 4: centered single */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {CASE_STUDIES.map((study, index) => (
             <CaseStudyCard 
@@ -149,6 +168,7 @@ const CaseStudyGrid = ({ onSelect }: CaseStudyGridProps) => {
               study={study} 
               index={index}
               onSelect={onSelect}
+              isFeatured={index === 0}
             />
           ))}
         </div>
