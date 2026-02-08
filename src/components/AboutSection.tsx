@@ -54,7 +54,7 @@ const AboutSection = () => {
               I've spent 12 years in product management across microfinance (FINCA International — 20 countries, 2M+ users), insurance (Legal & General), federal consulting (ICF — $1.2B procurement), and global EOR (Oyster HR — 160+ countries).
             </p>
             <p className="text-muted-foreground leading-relaxed font-body text-sm">
-              I hold an MS in Data Analytics from Northeastern University and an MBA in Finance & Marketing. ML Specialization from DeepLearning.AI. Reforge (Product Management, Data for PMs, PLG).
+              Currently pursuing an MS in Data Analytics from Northeastern University (2027). MBA in Finance & Marketing. ML Specialization from DeepLearning.AI. Reforge (Product Management, Data for PMs, PLG).
             </p>
           </motion.div>
 
