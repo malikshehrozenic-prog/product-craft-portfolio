@@ -2,6 +2,23 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowLeft, ArrowRight, Quote, CheckCircle2, XCircle, Users, Scale, BarChart3, MessageSquare, Lightbulb, AlertTriangle, Calculator, Clock, Target, Shield, Building } from "lucide-react";
 import { CaseStudy } from "@/data/caseStudies";
+
+// Static infographic images for each case study
+import pricingIntelligenceImg from "@/assets/case-study-pricing-intelligence.jpg";
+import benefitsEngineImg from "@/assets/case-study-benefits-engine.jpg";
+import wageRiskImg from "@/assets/case-study-wage-risk.jpg";
+import expenseIntelligenceImg from "@/assets/case-study-expense-intelligence.jpg";
+import mobileWalletImg from "@/assets/case-study-mobile-wallet.jpg";
+import eRequisitionImg from "@/assets/case-study-e-requisition.jpg";
+
+const INFOGRAPHIC_MAP: Record<string, string> = {
+  "pricing-intelligence": pricingIntelligenceImg,
+  "benefits-engine": benefitsEngineImg,
+  "wage-risk": wageRiskImg,
+  "expense-intelligence": expenseIntelligenceImg,
+  "mobile-wallet": mobileWalletImg,
+  "e-requisition": eRequisitionImg,
+};
 interface CaseStudyDetailProps {
   study: CaseStudy;
   onBack: () => void;
@@ -212,8 +229,28 @@ const CaseStudyDetail = ({ study, onBack, onNext, nextStudy }: CaseStudyDetailPr
                 </span>
               ))}
             </div>
-
           </motion.div>
+
+          {/* Infographic Hero Image */}
+          {INFOGRAPHIC_MAP[study.id] && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="mt-12"
+            >
+              <div className="rounded-2xl overflow-hidden border border-border/50 shadow-xl">
+                <img
+                  src={INFOGRAPHIC_MAP[study.id]}
+                  alt={`${study.title} - Visual Summary`}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+              <p className="text-center text-xs text-muted-foreground mt-4">
+                Visual summary · Key metrics at a glance
+              </p>
+            </motion.div>
+          )}
         </div>
       </section>
 
