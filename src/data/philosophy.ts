@@ -33,8 +33,8 @@ export const PHILOSOPHY: Philosophy[] = [
         text: "At Oyster, I manage $50M+ in financial exposure across payroll initiatives. I model unit economics not as a reporting exercise but as a decision framework — the Payroll Governance Engine was approved in one meeting because the cost-per-error × error-rate × growth-trajectory math was irrefutable." 
       },
     ],
-    evidence: "See: Global Benefits Platform — how revenue framing and unit economics modeling drove executive sponsorship",
-    caseLink: "benefits-engine",
+    evidence: "See: Benefits Platform ($0→$3M) and Pricing Intelligence (4.2pp margin improvement) — revenue framing that unlocked executive sponsorship",
+    caseLink: "pricing-intelligence",
   },
   {
     id: "discovery",
@@ -54,7 +54,7 @@ export const PHILOSOPHY: Philosophy[] = [
         text: "For initial red-teaming, I use LLM agents to simulate user personas and pressure-test feature logic. This never replaces real users — but it catches logical flaws in 30 minutes that would otherwise surface in week 2 of a beta." 
       },
     ],
-    evidence: "See: Wage Liability Risk Engine — how Finance Analyst discovery quotes shaped every product decision",
+    evidence: "See: Wage Risk Engine (Finance Analyst co-design) and Mobile Wallet (client field research in Uganda, Kenya, Tanzania)",
     caseLink: "wage-risk",
   },
   {
@@ -96,7 +96,7 @@ export const PHILOSOPHY: Philosophy[] = [
         text: "When opinions clash, I act as the translator between business goals and engineering reality. At Oyster, a key leader documented opposition to a collect-before-payout initiative due to customer experience risk. Instead of debating opinions, I quantified the exposure ($36-48M annually) and proposed a threshold-based compromise. Data moves conversations that opinions cannot." 
       },
     ],
-    evidence: "See: Enterprise Procurement — how governance framing and stakeholder co-design drove 94% adoption",
+    evidence: "See: E-Requisition (8 Division Directors, 94% adoption) and Mobile Wallet (repositioned loan officers from transaction processors to advisors)",
     caseLink: "e-requisition",
   },
   {

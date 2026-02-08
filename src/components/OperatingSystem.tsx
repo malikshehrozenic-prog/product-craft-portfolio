@@ -87,40 +87,14 @@ const OperatingSystem = ({ onCaseSelect }: OperatingSystemProps) => {
           </motion.div>
         </div>
 
-        {/* Career Arc */}
+        {/* Education & Tech */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          id="about"
-          className="mt-24"
+          className="mt-16"
         >
-          <h3 className="font-display text-3xl font-normal mb-8">Career Arc</h3>
-          <div className="space-y-3">
-            {CAREER_ARC.map((c, i) => (
-              <motion.div 
-                key={i} 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="bg-card/50 rounded-lg p-5 border border-border/50 grid md:grid-cols-[140px_1fr] gap-4"
-              >
-                <div>
-                  <p className="text-primary font-mono text-sm">{c.period}</p>
-                  <p className="text-xs text-muted-foreground font-body">{c.location}</p>
-                </div>
-                <div>
-                  <p className="font-display text-lg font-medium">{c.company}</p>
-                  <p className="text-sm text-primary mb-2 font-body">{c.role}</p>
-                  <p className="text-sm text-muted-foreground font-body">{c.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          
-          {/* Education & Tech */}
-          <div className="grid md:grid-cols-2 gap-6 mt-8">
+          <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-card/50 rounded-lg p-5 border border-border/50">
               <h4 className="font-display text-lg font-medium text-primary mb-2">Education</h4>
               <p className="text-sm text-muted-foreground font-body">{EDUCATION}</p>

@@ -5,6 +5,7 @@ import StrategicThesis from "@/components/StrategicThesis";
 import CaseStudyGrid from "@/components/CaseStudyGrid";
 import CaseStudyDetail from "@/components/CaseStudyDetail";
 import OperatingSystem from "@/components/OperatingSystem";
+import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -63,6 +64,7 @@ const Index = () => {
             <StrategicThesis />
             <CaseStudyGrid onSelect={handleSelect} />
             <OperatingSystem onCaseSelect={handleSelect} />
+            <AboutSection />
             <Footer />
           </motion.main>
         )}
