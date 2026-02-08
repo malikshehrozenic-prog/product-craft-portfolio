@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import malikCaricature from "@/assets/malik-caricature.png";
 
 const AboutSection = () => {
   return (
@@ -10,13 +11,28 @@ const AboutSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-12"
+          className="mb-12 flex flex-col md:flex-row items-start md:items-center gap-6"
         >
-          <div className="flex items-center gap-4 mb-6">
-            <div className="h-px w-12 bg-primary" />
-            <span className="text-primary font-medium tracking-[0.2em] uppercase text-xs font-body">
-              About
-            </span>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-primary/30 shadow-lg flex-shrink-0"
+          >
+            <img 
+              src={malikCaricature} 
+              alt="Malik - Product Manager" 
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+          <div>
+            <div className="flex items-center gap-4 mb-2">
+              <div className="h-px w-12 bg-primary" />
+              <span className="text-primary font-medium tracking-[0.2em] uppercase text-xs font-body">
+                About
+              </span>
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl font-medium">Malik Sheheryar Awan</h2>
           </div>
         </motion.div>
 
