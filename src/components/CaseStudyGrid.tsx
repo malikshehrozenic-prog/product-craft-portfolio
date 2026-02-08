@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, TrendingUp, Globe, Workflow, FileText, Shield, Wallet, DollarSign } from "lucide-react";
+import { Link } from "react-router-dom";
 import { CASE_STUDIES, CaseStudy } from "@/data/caseStudies";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -15,12 +16,10 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 const CaseStudyCard = ({ 
   study, 
   index, 
-  onSelect,
   isFeatured = false,
 }: { 
   study: CaseStudy; 
   index: number;
-  onSelect: (id: string) => void;
   isFeatured?: boolean;
 }) => {
   const Icon = iconMap[study.id] || TrendingUp;
@@ -33,8 +32,8 @@ const CaseStudyCard = ({
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className={isFeatured ? "md:col-span-2" : ""}
     >
-      <button
-        onClick={() => onSelect(study.id)}
+      <Link
+        to={`/case-study/${study.id}`}
         className={`group relative block w-full h-full text-left rounded-xl border border-border/50 overflow-hidden transition-all duration-500 hover:border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 ${
           isFeatured ? "min-h-[380px]" : "min-h-[340px]"
         }`}
@@ -122,16 +121,12 @@ const CaseStudyCard = ({
         <div 
           className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
         />
-      </button>
+      </Link>
     </motion.article>
   );
 };
 
-interface CaseStudyGridProps {
-  onSelect: (id: string) => void;
-}
-
-const CaseStudyGrid = ({ onSelect }: CaseStudyGridProps) => {
+const CaseStudyGrid = () => {
   return (
     <section id="case-studies" className="py-32 px-6 relative">
       {/* Section background accent */}
@@ -167,7 +162,6 @@ const CaseStudyGrid = ({ onSelect }: CaseStudyGridProps) => {
               key={study.id} 
               study={study} 
               index={index}
-              onSelect={onSelect}
               isFeatured={index === 0}
             />
           ))}

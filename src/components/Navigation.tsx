@@ -1,22 +1,17 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-
-interface NavigationProps {
-  activeSection?: string;
-}
+import { Link, useLocation } from "react-router-dom";
 
 const NAV_ITEMS = [
-  { id: "thesis", label: "Thesis" },
-  { id: "case-studies", label: "Work" },
-  { id: "operating-system", label: "System" },
-  { id: "about", label: "About" },
-  { id: "contact", label: "Contact" },
+  { path: "/", label: "Work" },
+  { path: "/about", label: "About" },
 ];
 
-const Navigation = ({ activeSection }: NavigationProps) => {
+const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,10 +21,10 @@ const Navigation = ({ activeSection }: NavigationProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  const handleContactClick = () => {
+    const footer = document.getElementById("contact");
+    if (footer) {
+      footer.scrollIntoView({ behavior: "smooth" });
     }
     setIsMobileOpen(false);
   };
@@ -59,20 +54,30 @@ const Navigation = ({ activeSection }: NavigationProps) => {
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-8">
               {NAV_ITEMS.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`relative text-sm font-medium transition-colors ${
+                    location.pathname === item.path 
+                      ? "text-foreground" 
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
                 >
                   {item.label}
-                  {activeSection === item.id && (
+                  {location.pathname === item.path && (
                     <motion.div
                       layoutId="activeNav"
                       className="absolute -bottom-1 left-1/2 w-1 h-1 rounded-full bg-primary -translate-x-1/2"
                     />
                   )}
-                </button>
+                </Link>
               ))}
+              <button
+                onClick={handleContactClick}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Contact
+              </button>
             </div>
 
             {/* Mobile Toggle */}
@@ -108,17 +113,30 @@ const Navigation = ({ activeSection }: NavigationProps) => {
 
               <div className="flex-1 flex flex-col items-center justify-center gap-8">
                 {NAV_ITEMS.map((item, i) => (
-                  <motion.button
-                    key={item.id}
+                  <motion.div
+                    key={item.path}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1 }}
-                    onClick={() => scrollToSection(item.id)}
-                    className="font-display text-3xl text-foreground hover:text-primary transition-colors"
                   >
-                    {item.label}
-                  </motion.button>
+                    <Link
+                      to={item.path}
+                      onClick={() => setIsMobileOpen(false)}
+                      className="font-display text-3xl text-foreground hover:text-primary transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
                 ))}
+                <motion.button
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: NAV_ITEMS.length * 0.1 }}
+                  onClick={handleContactClick}
+                  className="font-display text-3xl text-foreground hover:text-primary transition-colors"
+                >
+                  Contact
+                </motion.button>
               </div>
             </div>
           </motion.div>
