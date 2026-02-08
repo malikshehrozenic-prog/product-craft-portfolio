@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowLeft, ArrowRight, Quote, CheckCircle2, XCircle, Users, Scale, BarChart3, MessageSquare, Lightbulb, AlertTriangle, Calculator, Clock, Target, Shield, Building } from "lucide-react";
 import { CaseStudy } from "@/data/caseStudies";
+import InfographicHero from "./InfographicHero";
 
 interface CaseStudyDetailProps {
   study: CaseStudy;
@@ -213,6 +214,9 @@ const CaseStudyDetail = ({ study, onBack, onNext, nextStudy }: CaseStudyDetailPr
                 </span>
               ))}
             </div>
+
+            {/* Infographic Hero */}
+            <InfographicHero caseStudy={study} />
           </motion.div>
         </div>
       </section>
