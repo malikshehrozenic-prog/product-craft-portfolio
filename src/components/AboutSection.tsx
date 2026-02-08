@@ -32,7 +32,7 @@ const AboutSection = () => {
                 About
               </span>
             </div>
-            <h2 className="font-display text-3xl md:text-4xl font-medium">Malik Sheheryar Awan</h2>
+            <h2 className="font-display text-3xl md:text-4xl font-medium">Malik Shehroze Ali</h2>
           </div>
         </motion.div>
 
