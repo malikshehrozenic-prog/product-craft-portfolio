@@ -117,6 +117,17 @@
 
   html {
     scroll-behavior: smooth;
+    cursor: none;
+  }
+
+  a, button, [role="button"], .cursor-hover {
+    cursor: none;
+  }
+
+  @media (pointer: coarse) {
+    html, a, button, [role="button"], .cursor-hover {
+      cursor: auto;
+    }
   }
 
   body {
