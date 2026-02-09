@@ -4,6 +4,7 @@ import AboutSection from "@/components/AboutSection";
 import OperatingSystem from "@/components/OperatingSystem";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
+import CustomCursor from "@/components/CustomCursor";
 import { useNavigate } from "react-router-dom";
 
 const About = () => {
@@ -15,6 +16,7 @@ const About = () => {
 
   return (
     <div className="noise">
+      <CustomCursor />
       <ScrollProgress />
       <motion.main
         className="min-h-screen bg-background"
