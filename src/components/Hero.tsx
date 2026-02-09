@@ -1,9 +1,62 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { useRef, useState } from "react";
 import { ArrowDown } from "lucide-react";
 import ConstellationGraph from "./ConstellationGraph";
 import TextReveal from "./TextReveal";
 import CountUp from "./CountUp";
+import FloatingParticles from "./FloatingParticles";
+import malikCaricature from "@/assets/malik-caricature.png";
+
+// Magnetic element — follows cursor within its bounding box
+const MagneticStat = ({ value, label, index }: { value: string; label: string; index: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 150, damping: 15 });
+  const springY = useSpring(y, { stiffness: 150, damping: 15 });
+
+  const handleMouse = (e: React.MouseEvent) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    x.set((e.clientX - centerX) * 0.15);
+    y.set((e.clientY - centerY) * 0.15);
+  };
+
+  const handleLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      className="group cursor-default"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 1.5 + index * 0.1 }}
+      onMouseMove={handleMouse}
+      onMouseLeave={handleLeave}
+      style={{ x: springX, y: springY }}
+    >
+      <CountUp
+        value={value}
+        className="font-mono text-2xl md:text-3xl font-medium text-foreground group-hover:text-primary transition-colors block"
+      />
+      <div className="text-muted-foreground text-xs mt-1 tracking-wide uppercase font-body">
+        {label}
+      </div>
+      <motion.div
+        className="h-0.5 bg-primary mt-2"
+        initial={{ scaleX: 0 }}
+        whileHover={{ scaleX: 1 }}
+        transition={{ duration: 0.3 }}
+        style={{ originX: 0 }}
+      />
+    </motion.div>
+  );
+};
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -14,6 +67,7 @@ const Hero = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const [waveCount, setWaveCount] = useState(0);
 
   const stats = [
     { value: "$50M+", label: "Managed Exposure" },
@@ -63,6 +117,9 @@ const Hero = () => {
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
       </div>
+
+      {/* Floating emoji particles */}
+      <FloatingParticles />
 
       {/* Grid lines for editorial feel */}
       <div className="absolute inset-0 opacity-[0.02]">
@@ -134,7 +191,7 @@ const Hero = () => {
               </p>
             </motion.div>
 
-            {/* Stats row with count-up */}
+            {/* Stats row with magnetic effect */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -142,41 +199,65 @@ const Hero = () => {
               className="flex flex-wrap gap-8 md:gap-12 mt-12 pt-8 border-t border-border/30"
             >
               {stats.map((stat, i) => (
-                <motion.div
-                  key={i}
-                  className="group cursor-default"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 1.5 + i * 0.1 }}
-                  whileHover={{ y: -4 }}
-                >
-                  <CountUp
-                    value={stat.value}
-                    className="font-mono text-2xl md:text-3xl font-medium text-foreground group-hover:text-primary transition-colors block"
-                  />
-                  <div className="text-muted-foreground text-xs mt-1 tracking-wide uppercase font-body">
-                    {stat.label}
-                  </div>
-                  <motion.div
-                    className="h-0.5 bg-primary mt-2"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.3 }}
-                    style={{ originX: 0 }}
-                  />
-                </motion.div>
+                <MagneticStat key={i} value={stat.value} label={stat.label} index={i} />
               ))}
             </motion.div>
           </div>
 
-          {/* Right - Constellation Graph (desktop only) */}
+          {/* Right - Caricature with constellation overlay (desktop only) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="hidden lg:block"
+            className="hidden lg:flex flex-col items-center relative"
           >
-            <ConstellationGraph />
+            {/* Caricature with interactive wave */}
+            <motion.div
+              className="relative cursor-hover"
+              whileHover={{ scale: 1.03 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              onClick={() => setWaveCount(c => c + 1)}
+            >
+              <motion.img
+                src={malikCaricature}
+                alt="Malik Shehroze Ali caricature"
+                className="w-48 h-48 rounded-full object-cover border-2 border-primary/20"
+                animate={{
+                  boxShadow: [
+                    "0 0 0px hsl(var(--primary) / 0)",
+                    "0 0 40px hsl(var(--primary) / 0.15)",
+                    "0 0 0px hsl(var(--primary) / 0)",
+                  ],
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
+              />
+              {/* Wave emoji on click */}
+              {waveCount > 0 && (
+                <motion.span
+                  key={waveCount}
+                  className="absolute -top-4 -right-4 text-3xl"
+                  initial={{ opacity: 1, scale: 0, y: 0 }}
+                  animate={{ opacity: 0, scale: 1.5, y: -40 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  👋
+                </motion.span>
+              )}
+              {/* Floating label */}
+              <motion.div
+                className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-primary/10 border border-primary/20 rounded-full px-3 py-1 text-xs font-mono text-primary whitespace-nowrap"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.5 }}
+              >
+                click me! 🚀
+              </motion.div>
+            </motion.div>
+
+            {/* Constellation below */}
+            <div className="mt-8 scale-90 origin-top">
+              <ConstellationGraph />
+            </div>
           </motion.div>
         </div>
       </motion.div>
