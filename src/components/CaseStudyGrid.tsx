@@ -52,143 +52,89 @@ const CaseStudyCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, delay: index * 0.12, ease: [0.33, 1, 0.68, 1] }}
-      className={isFeatured ? "md:col-span-2" : ""}
-      style={{ perspective: 800 }}
+      className={`${isFeatured ? "md:col-span-2" : ""} group/flip`}
+      style={{ perspective: 1000 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       <motion.div
-        style={{ rotateX, rotateY }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className="relative w-full h-full"
+        style={{
+          transformStyle: "preserve-3d",
+          rotateX,
+          rotateY,
+        }}
+        whileHover={{ rotateY: 180 }}
+        transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
       >
-        <Link
-          to={`/case-study/${study.id}`}
-          className={`group relative block w-full h-full text-left rounded-xl border border-border/50 overflow-hidden transition-all duration-500 hover:border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 ${
+        {/* FRONT */}
+        <div
+          className={`relative block w-full rounded-xl border border-border/50 overflow-hidden ${
             isFeatured ? "min-h-[380px]" : "min-h-[340px]"
           }`}
+          style={{ backfaceVisibility: "hidden" }}
         >
-          {/* Mouse-follow glare */}
-          <motion.div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-            style={{
-              background: useTransform(
-                [glareX, glareY],
-                ([gx, gy]) => `radial-gradient(600px circle at ${gx} ${gy}, hsl(var(--primary) / 0.08), transparent 60%)`
-              ),
-            }}
-          />
-          
-          {/* Card background */}
           <div className="absolute inset-0 card-gradient" />
-
-          {/* Content */}
           <div className="relative z-10 h-full p-6 md:p-8 flex flex-col">
-            {/* Header */}
             <div className="flex items-start justify-between mb-6">
               <div className="flex items-center gap-4">
-                <motion.span
-                  className="text-sm font-mono tracking-wider text-primary"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  {study.number}
-                </motion.span>
-                <motion.div 
-                  className="w-10 h-10 rounded-lg bg-muted/80 border border-border/50 flex items-center justify-center"
-                  whileHover={{ scale: 1.1, rotate: 10, borderColor: "hsl(var(--primary) / 0.5)" }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
+                <span className="text-sm font-mono tracking-wider text-primary">{study.number}</span>
+                <div className="w-10 h-10 rounded-lg bg-muted/80 border border-border/50 flex items-center justify-center">
                   <Icon className="w-5 h-5 text-primary" />
-                </motion.div>
-                {/* Company badge */}
+                </div>
                 <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-1 rounded">
                   {study.company}
                 </span>
               </div>
-              <motion.div
-                className="w-9 h-9 rounded-full bg-muted/50 flex items-center justify-center"
-                initial={{ opacity: 0, x: -10, y: 10 }}
-                whileHover={{ scale: 1.1 }}
-                animate={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ duration: 0.3 }}
-                style={{ opacity: 0 }}
-              >
+              <div className="w-9 h-9 rounded-full bg-muted/50 flex items-center justify-center">
                 <ArrowUpRight className="w-4 h-4 text-primary" />
-              </motion.div>
+              </div>
             </div>
-
-            {/* Text content */}
             <div className="flex-1">
-              <motion.p
-                className="text-xs font-medium tracking-wide uppercase mb-2 text-primary/80 font-body"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.1 }}
-              >
-                {study.subtitle}
-              </motion.p>
-              <h3 className={`font-display font-normal mb-3 group-hover:text-primary transition-colors duration-300 ${
+              <p className="text-xs font-medium tracking-wide uppercase mb-2 text-primary/80 font-body">{study.subtitle}</p>
+              <h3 className={`font-display font-normal mb-3 transition-colors duration-300 ${
                 isFeatured ? "text-2xl lg:text-3xl" : "text-xl lg:text-2xl"
-              }`}>
-                {study.title}
-              </h3>
+              }`}>{study.title}</h3>
               <p className={`text-muted-foreground leading-relaxed text-sm font-body mb-4 ${
                 isFeatured ? "line-clamp-3" : "line-clamp-2"
-              }`}>
-                {study.oneLiner}
-              </p>
-              
-              {/* Impact badge with pulse */}
-              <motion.div
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono bg-primary/10 text-primary"
-                whileHover={{ scale: 1.05, backgroundColor: "hsl(var(--primary) / 0.15)" }}
-              >
+              }`}>{study.oneLiner}</p>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono bg-primary/10 text-primary">
                 <motion.span
                   className="w-1.5 h-1.5 rounded-full bg-primary"
                   animate={{ scale: [1, 1.3, 1], opacity: [1, 0.5, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
                 {study.impact}
-              </motion.div>
+              </div>
             </div>
-
-            {/* Team size */}
-            <p className="text-xs text-muted-foreground font-body mt-4 line-clamp-1">
-              {study.teamSize}
-            </p>
-
-            {/* Tags with staggered hover */}
+            <p className="text-xs text-muted-foreground font-body mt-4 line-clamp-1">{study.teamSize}</p>
             <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border/30">
-              {study.tags.slice(0, isFeatured ? 4 : 3).map((tag, tagIndex) => (
-                <motion.span
+              {study.tags.slice(0, isFeatured ? 4 : 3).map((tag) => (
+                <span
                   key={tag}
-                  className="px-2.5 py-1 text-xs font-body rounded-md bg-muted/60 text-muted-foreground border border-border/30 group-hover:border-primary/20 transition-colors duration-300"
-                  whileHover={{ scale: 1.05, color: "hsl(var(--primary))" }}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 + tagIndex * 0.05 }}
-                >
-                  {tag}
-                </motion.span>
+                  className="px-2.5 py-1 text-xs font-body rounded-md bg-muted/60 text-muted-foreground border border-border/30"
+                >{tag}</span>
               ))}
             </div>
           </div>
+        </div>
 
-          {/* Hover line accent with glow */}
-          <motion.div 
-            className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary origin-left"
-            initial={{ scaleX: 0 }}
-            whileHover={{ scaleX: 1 }}
-            transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
-            style={{
-              boxShadow: "0 0 20px hsl(var(--primary) / 0.5)",
-            }}
-          />
-
-          {/* Corner accent on hover */}
-          <div className="absolute top-0 right-0 w-12 h-12 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div className="absolute top-0 right-0 w-px h-8 bg-primary/50" />
-            <div className="absolute top-0 right-0 h-px w-8 bg-primary/50" />
+        {/* BACK */}
+        <Link
+          to={`/case-study/${study.id}`}
+          className={`absolute inset-0 rounded-xl border border-primary/30 overflow-hidden flex flex-col items-center justify-center p-8 text-center ${
+            isFeatured ? "min-h-[380px]" : "min-h-[340px]"
+          }`}
+          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-card to-card" />
+          <div className="relative z-10">
+            <Icon className="w-10 h-10 text-primary mx-auto mb-4" />
+            <h3 className="font-display text-2xl mb-3">{study.title}</h3>
+            <p className="text-muted-foreground text-sm font-body mb-6 max-w-sm">{study.oneLiner}</p>
+            <div className="inline-flex items-center gap-2 text-primary font-body text-sm font-medium">
+              View Case Study <ArrowUpRight className="w-4 h-4" />
+            </div>
           </div>
         </Link>
       </motion.div>
