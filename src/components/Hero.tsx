@@ -1,11 +1,13 @@
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { useRef, useState } from "react";
 import { ArrowDown } from "lucide-react";
-import ConstellationGraph from "./ConstellationGraph";
 import TextReveal from "./TextReveal";
 import CountUp from "./CountUp";
 import FloatingParticles from "./FloatingParticles";
 import malikCaricature from "@/assets/malik-caricature.png";
+import { lazy, Suspense } from "react";
+
+const Globe3D = lazy(() => import("./Globe3D"));
 
 // Magnetic element — follows cursor within its bounding box
 const MagneticStat = ({ value, label, index }: { value: string; label: string; index: number }) => {
@@ -254,9 +256,11 @@ const Hero = () => {
               </motion.div>
             </motion.div>
 
-            {/* Constellation below */}
-            <div className="mt-8 scale-90 origin-top">
-              <ConstellationGraph />
+            {/* 3D Globe */}
+            <div className="mt-4 w-[280px] h-[280px]">
+              <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs font-mono">loading globe...</div>}>
+                <Globe3D />
+              </Suspense>
             </div>
           </motion.div>
         </div>

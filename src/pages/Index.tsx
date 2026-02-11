@@ -5,11 +5,13 @@ import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import ScrollProgress from "@/components/ScrollProgress";
 import CustomCursor from "@/components/CustomCursor";
+import CursorSpotlight from "@/components/CursorSpotlight";
 
 const Index = () => {
   return (
     <div className="noise">
       <CustomCursor />
+      <CursorSpotlight />
       <ScrollProgress />
       <motion.main 
         className="min-h-screen bg-background"

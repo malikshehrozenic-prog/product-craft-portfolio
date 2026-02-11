@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
+import SoundToggle from "./SoundToggle";
+import { useSoundEffect } from "@/hooks/useSoundEffect";
 
 const NAV_ITEMS = [
   { path: "/", label: "Work" },
@@ -14,6 +17,7 @@ const Navigation = () => {
   const location = useLocation();
   const { scrollY } = useScroll();
   const navOpacity = useTransform(scrollY, [0, 100], [0, 1]);
+  const { play, toggle } = useSoundEffect();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -100,8 +104,12 @@ const Navigation = () => {
               >
                 Contact
               </motion.button>
+              {/* Sound toggle */}
+              <SoundToggle onToggle={toggle} />
+              {/* Theme toggle */}
+              <ThemeToggle />
               {/* Availability indicator */}
-              <div className="ml-4 flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/30 bg-muted/30">
+              <div className="ml-2 flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/30 bg-muted/30">
                 <motion.div
                   className="w-1.5 h-1.5 rounded-full bg-status-green"
                   animate={{ opacity: [1, 0.4, 1] }}
