@@ -52,27 +52,17 @@ const CaseStudyCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, delay: index * 0.12, ease: [0.33, 1, 0.68, 1] }}
-      className={`${isFeatured ? "md:col-span-2" : ""} group/flip`}
+      className={`${isFeatured ? "md:col-span-2" : ""} group`}
       style={{ perspective: 1000 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <motion.div
-        className="relative w-full h-full"
-        style={{
-          transformStyle: "preserve-3d",
-          rotateX,
-          rotateY,
-        }}
-        whileHover={{ rotateY: 180 }}
-        transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
-      >
-        {/* FRONT */}
-        <div
+      <Link to={`/case-study/${study.id}`}>
+        <motion.div
           className={`relative block w-full rounded-xl border border-border/50 overflow-hidden ${
             isFeatured ? "min-h-[380px]" : "min-h-[340px]"
-          }`}
-          style={{ backfaceVisibility: "hidden" }}
+          } transition-colors duration-300 group-hover:border-primary/40`}
+          style={{ rotateX, rotateY }}
         >
           <div className="absolute inset-0 card-gradient" />
           <div className="relative z-10 h-full p-6 md:p-8 flex flex-col">
@@ -86,8 +76,8 @@ const CaseStudyCard = ({
                   {study.company}
                 </span>
               </div>
-              <div className="w-9 h-9 rounded-full bg-muted/50 flex items-center justify-center">
-                <ArrowUpRight className="w-4 h-4 text-primary" />
+              <div className="w-9 h-9 rounded-full bg-muted/50 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <ArrowUpRight className="w-4 h-4 text-primary transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </div>
             </div>
             <div className="flex-1">
@@ -117,27 +107,8 @@ const CaseStudyCard = ({
               ))}
             </div>
           </div>
-        </div>
-
-        {/* BACK */}
-        <Link
-          to={`/case-study/${study.id}`}
-          className={`absolute inset-0 rounded-xl border border-primary/30 overflow-hidden flex flex-col items-center justify-center p-8 text-center ${
-            isFeatured ? "min-h-[380px]" : "min-h-[340px]"
-          }`}
-          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-card to-card" />
-          <div className="relative z-10">
-            <Icon className="w-10 h-10 text-primary mx-auto mb-4" />
-            <h3 className="font-display text-2xl mb-3">{study.title}</h3>
-            <p className="text-muted-foreground text-sm font-body mb-6 max-w-sm">{study.oneLiner}</p>
-            <div className="inline-flex items-center gap-2 text-primary font-body text-sm font-medium">
-              View Case Study <ArrowUpRight className="w-4 h-4" />
-            </div>
-          </div>
-        </Link>
-      </motion.div>
+        </motion.div>
+      </Link>
     </motion.article>
   );
 };
